@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/companySetupFragment">
+    <fragment
+        android:id="@+id/companySetupFragment"
+        android:name="com.soriano.christianjose.block6.p1.tsikottracker.CompanySetupFragment"
+        android:label="fragment_company_setup"
+        tools:layout="@layout/fragment_company_setup" >
+        <action
+            android:id="@+id/action_companySetupFragment_to_addServiceFragment"
+            app:destination="@id/addServiceFragment" />
+        <action
+            android:id="@+id/action_companySetupFragment_to_showCompaniesFragment"
+            app:destination="@id/showCompaniesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addServiceFragment"
+        android:name="com.soriano.christianjose.block6.p1.tsikottracker.AddServiceFragment"
+        android:label="fragment_add_service"
+        tools:layout="@layout/fragment_add_service" />
+    <fragment
+        android:id="@+id/showCompaniesFragment"
+        android:name="com.soriano.christianjose.block6.p1.tsikottracker.ShowCompaniesFragment"
+        android:label="fragment_show_companies"
+        tools:layout="@layout/fragment_show_companies" />
+</navigation>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".CompanySetupFragment">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvCompanySetupTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="36sp"
+        android:textColor="@color/black"
+        android:text="Company Setup"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvJoin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="48dp"
+        android:text="Join Existing Company"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="280dp"
+        android:layout_marginTop="12dp"
+        android:layout_height="wrap_content"
+        android:hint="Code"
+        app:endIconMode="clear_text">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnJoin"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Join"/>
+
+
+
+    <LinearLayout
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:background="#bebebe" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#bebebe"
+            android:text="OR"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:background="#bebebe" />
+
+    </LinearLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="24dp"
+        android:text="Create Company"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="280dp"
+        android:layout_marginTop="12dp"
+        android:layout_height="wrap_content"
+        android:hint="Company Name"
+        app:endIconMode="clear_text">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etCompanyName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:layout_height="wrap_content">-->
+<!--        -->
+<!--        -->
+<!--        -->
+
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_marginTop="12dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:hint="Service"-->
+<!--            android:layout_marginStart="16dp"-->
+<!--            android:layout_marginEnd="8dp"-->
+<!--            android:layout_weight="1"-->
+<!--            app:endIconMode="clear_text">-->
+
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"/>-->
+
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
+
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_marginTop="12dp"-->
+<!--            android:layout_weight="2"-->
+
+<!--            android:layout_marginStart="8dp"-->
+<!--            android:layout_marginEnd="16dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:hint="Price"-->
+<!--            app:endIconMode="clear_text">-->
+
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"/>-->
+
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
+<!--        -->
+<!--        -->
+<!--    </LinearLayout>-->
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnCreate"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="38dp"
+        android:text="Create"/>
+
+
+
+
+</LinearLayout>
