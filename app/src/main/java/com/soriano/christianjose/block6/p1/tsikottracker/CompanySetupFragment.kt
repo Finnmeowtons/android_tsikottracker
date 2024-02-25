@@ -5,8 +5,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import com.google.android.material.appbar.AppBarLayout
 import com.soriano.christianjose.block6.p1.tsikottracker.api.CompanyApi
 import com.soriano.christianjose.block6.p1.tsikottracker.data.Company
 import com.soriano.christianjose.block6.p1.tsikottracker.databinding.FragmentCompanySetupBinding
@@ -69,7 +72,12 @@ class CompanySetupFragment : Fragment() {
         }
 
         binding.btnJoin.setOnClickListener {
-            view.findNavController().navigate(R.id.action_companySetupFragment_to_showCompaniesFragment)
+
+            activity?.findViewById<AppBarLayout>(R.id.appBarLayout)?.visibility = View.VISIBLE
+            activity?.findViewById<DrawerLayout>(R.id.drawerLayout)?.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+            view.findNavController().navigate(R.id.action_side_nav_pop_up_to_dashboard)
+
+
         }
 
         return view

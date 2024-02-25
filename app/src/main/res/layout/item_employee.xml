@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/item_border"
+    android:paddingBottom="12dp"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tvEmployeeNameTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:textColor="@color/black"
+        android:text="Employee's Name"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvEmployeeNameValue"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Christian Jose Madriaga Soriano"
+        android:maxLines="2"
+        android:textSize="14sp"
+        android:ellipsize="marquee"
+        app:layout_constraintBottom_toBottomOf="@+id/tvEmployeeNameTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvEmployeeNameTitle"
+        app:layout_constraintTop_toTopOf="@+id/tvEmployeeNameTitle" />
+
+
+    <TextView
+        android:id="@+id/tvPositionTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:textColor="@color/black"
+        android:text="Position"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/tvEmployeeNameTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/tvPositionValue"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:maxLines="2"
+        android:ellipsize="marquee"
+        android:text="Director of Customer Experience Enhancement and Quality Assurance Operations"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvPositionTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvEmployeeNameValue"
+        app:layout_constraintTop_toTopOf="@+id/tvPositionTitle" />
+
+    <TextView
+        android:id="@+id/tvPositionTitlee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Contact Number"
+        android:layout_marginTop="12dp"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvPositionTitle" />
+
+    <TextView
+        android:id="@+id/tvPositionValuee"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="marquee"
+        android:maxLines="2"
+        android:text="Director of Customer"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvPositionTitlee"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvPositionValue"
+        app:layout_constraintTop_toTopOf="@+id/tvPositionTitlee" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

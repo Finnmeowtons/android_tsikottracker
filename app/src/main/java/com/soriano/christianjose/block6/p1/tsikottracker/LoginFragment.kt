@@ -5,15 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.addCallback
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.appbar.AppBarLayout
-import com.soriano.christianjose.block6.p1.tsikottracker.databinding.FragmentRecordBinding
+import com.google.android.material.navigation.NavigationView
+import com.soriano.christianjose.block6.p1.tsikottracker.databinding.FragmentLoginAndRegisterBinding
 
-class RecordFragment : Fragment() {
 
-    private var _binding: FragmentRecordBinding? = null
+class LoginFragment : Fragment() {
+
+    private var _binding: FragmentLoginAndRegisterBinding? = null
     // This property is only valid between onCreateView and
 // onDestroyView.
     private val binding get() = _binding!!
@@ -22,12 +23,15 @@ class RecordFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentRecordBinding.inflate(inflater, container, false)
+        _binding = FragmentLoginAndRegisterBinding.inflate(inflater, container, false)
         val view = binding.root
+        activity?.findViewById<AppBarLayout>(R.id.appBarLayout)?.visibility = View.GONE
+        activity?.findViewById<DrawerLayout>(R.id.drawerLayout)?.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
-        requireActivity().onBackPressedDispatcher.addCallback(this) {
-            findNavController().navigate(R.id.action_side_nav_pop_up_to_dashboard)
+        binding.btnLogin.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_registrationFragment)
         }
+
 
         return view
     }

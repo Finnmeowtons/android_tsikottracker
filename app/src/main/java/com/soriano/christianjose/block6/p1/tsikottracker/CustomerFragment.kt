@@ -5,22 +5,25 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.soriano.christianjose.block6.p1.tsikottracker.databinding.FragmentCompanyDashboardBinding
+import androidx.activity.addCallback
+import androidx.navigation.fragment.findNavController
+import com.soriano.christianjose.block6.p1.tsikottracker.databinding.FragmentCustomerBinding
 
-class CompanyDashboardFragment : Fragment() {
-    private var _binding: FragmentCompanyDashboardBinding? =null
+
+class CustomerFragment : Fragment() {
+    private var _binding: FragmentCustomerBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
-        val binding = FragmentCompanyDashboardBinding.inflate(inflater, container, false)
+        _binding = FragmentCustomerBinding.inflate(inflater, container, false)
         val view = binding.root
 
-
-
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            findNavController().navigate(R.id.action_side_nav_pop_up_to_dashboard)
+        }
 
         return view
     }
@@ -29,5 +32,4 @@ class CompanyDashboardFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }

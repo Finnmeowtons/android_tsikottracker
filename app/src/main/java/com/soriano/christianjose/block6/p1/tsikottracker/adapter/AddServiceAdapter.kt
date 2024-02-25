@@ -12,7 +12,7 @@ import com.soriano.christianjose.block6.p1.tsikottracker.databinding.ItemAddServ
 class AddServiceAdapter() : RecyclerView.Adapter<AddServiceViewHolder>() {
 
 
-    private val offerList = mutableListOf(Offer(id = 0, name="", price=0, type="", companyId = 1))
+    private val offerList = mutableListOf(Offer(id = 0, name="", price=0, type="", company_id = 1))
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddServiceViewHolder {
@@ -95,7 +95,7 @@ class AddServiceAdapter() : RecyclerView.Adapter<AddServiceViewHolder>() {
     }
 
     fun addItem() {
-        offerList.add(Offer(id = 0, name = "", price = 0, type = "", companyId = 1))
+        offerList.add(Offer(id = 0, name = "", price = 0, type = "", company_id = 1))
         notifyItemInserted(offerList.size+1) // Tell the RecyclerView to update
     }
 

@@ -3,7 +3,44 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_nav"
-    app:startDestination="@id/companySetupFragment">
+    app:startDestination="@id/loginFragment">
+
+    <!-- Action back to destination which launched into this in_game_nav_graph -->
+    <action android:id="@+id/action_side_nav_pop_up_to_dashboard"
+        app:destination="@id/companyDashboardFragment"
+        app:popUpTo="@id/my_nav"
+        app:popUpToInclusive="true"/>
+
+    <action android:id="@+id/action_side_nav_pop_up_to_record"
+        app:destination="@id/recordFragment2"
+        app:popUpTo="@id/my_nav"
+        app:popUpToInclusive="true"  />
+
+    <action android:id="@+id/action_side_nav_pop_up_to_analytic"
+        app:destination="@id/analyticFragment"
+        app:popUpTo="@id/my_nav"
+        app:popUpToInclusive="true"  />
+
+    <action android:id="@+id/action_side_nav_pop_up_to_customer"
+        app:destination="@id/customerFragment"
+        app:popUpTo="@id/my_nav"
+        app:popUpToInclusive="true"  />
+
+    <action android:id="@+id/action_side_nav_pop_up_to_employee"
+        app:destination="@id/employeeFragment"
+        app:popUpTo="@id/my_nav"
+        app:popUpToInclusive="true"  />
+
+    <action android:id="@+id/action_side_nav_pop_up_to_offer"
+        app:destination="@id/offerFragment"
+        app:popUpTo="@id/my_nav"
+        app:popUpToInclusive="true"  />
+
+    <action android:id="@+id/action_side_nav_pop_up_to_settings"
+        app:destination="@id/settingsFragment"
+        app:popUpTo="@id/my_nav"
+        app:popUpToInclusive="true"  />
+
     <fragment
         android:id="@+id/companySetupFragment"
         android:name="com.soriano.christianjose.block6.p1.tsikottracker.CompanySetupFragment"
@@ -11,19 +48,89 @@
         tools:layout="@layout/fragment_company_setup" >
         <action
             android:id="@+id/action_companySetupFragment_to_addServiceFragment"
-            app:destination="@id/addServiceFragment" />
+            app:destination="@id/addServiceFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action
-            android:id="@+id/action_companySetupFragment_to_showCompaniesFragment"
-            app:destination="@id/showCompaniesFragment" />
+            android:id="@+id/action_companySetupFragment_to_companyDashboardFragment"
+            app:destination="@id/companyDashboardFragment" />
     </fragment>
     <fragment
         android:id="@+id/addServiceFragment"
         android:name="com.soriano.christianjose.block6.p1.tsikottracker.AddServiceFragment"
         android:label="fragment_add_service"
-        tools:layout="@layout/fragment_add_service" />
+        tools:layout="@layout/fragment_add_service" >
+        <action
+            android:id="@+id/action_addServiceFragment_to_companyDashboardFragment"
+            app:destination="@id/companyDashboardFragment"
+
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+    </fragment>
     <fragment
-        android:id="@+id/showCompaniesFragment"
-        android:name="com.soriano.christianjose.block6.p1.tsikottracker.ShowCompaniesFragment"
-        android:label="fragment_show_companies"
-        tools:layout="@layout/fragment_show_companies" />
+        android:id="@+id/companyDashboardFragment"
+        android:name="com.soriano.christianjose.block6.p1.tsikottracker.CompanyDashboardFragment"
+        android:label="fragment_company_dashboard"
+        tools:layout="@layout/fragment_company_dashboard" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.soriano.christianjose.block6.p1.tsikottracker.LoginFragment"
+        android:label="fragment_login_and_register"
+        tools:layout="@layout/fragment_login_and_register" >
+        <action
+            android:id="@+id/action_loginFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="com.soriano.christianjose.block6.p1.tsikottracker.RegistrationFragment"
+        android:label="fragment_registration"
+        tools:layout="@layout/fragment_registration" >
+        <action
+            android:id="@+id/action_registrationFragment_to_companySetupFragment"
+            app:destination="@id/companySetupFragment"
+
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/recordFragment2"
+        android:name="com.soriano.christianjose.block6.p1.tsikottracker.RecordFragment"
+        android:label="fragment_record"
+        tools:layout="@layout/fragment_record" />
+    <fragment
+        android:id="@+id/analyticFragment"
+        android:name="com.soriano.christianjose.block6.p1.tsikottracker.AnalyticFragment"
+        android:label="fragment_analytic"
+        tools:layout="@layout/fragment_analytic" />
+    <fragment
+        android:id="@+id/customerFragment"
+        android:name="com.soriano.christianjose.block6.p1.tsikottracker.CustomerFragment"
+        android:label="fragment_customer"
+        tools:layout="@layout/fragment_customer" />
+    <fragment
+        android:id="@+id/employeeFragment"
+        android:name="com.soriano.christianjose.block6.p1.tsikottracker.EmployeeFragment"
+        android:label="fragment_employee"
+        tools:layout="@layout/fragment_employee" />
+    <fragment
+        android:id="@+id/offerFragment"
+        android:name="com.soriano.christianjose.block6.p1.tsikottracker.OfferFragment"
+        android:label="fragment_offer"
+        tools:layout="@layout/fragment_offer" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.soriano.christianjose.block6.p1.tsikottracker.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>

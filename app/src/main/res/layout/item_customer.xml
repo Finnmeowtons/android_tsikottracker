@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/item_border"
+    android:paddingBottom="12dp"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tvCustomerEmployeeNameTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:textColor="@color/black"
+        android:text="Customer's Name"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvCustomerEmployeeNameValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Christian Jose Madriaga Soriano"
+        android:layout_marginStart="16dp"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvCustomerEmployeeNameTitle"
+        app:layout_constraintStart_toEndOf="@+id/tvCustomerEmployeeNameTitle"
+        app:layout_constraintTop_toTopOf="@+id/tvCustomerEmployeeNameTitle" />
+
+
+    <TextView
+        android:id="@+id/tvRegistrationPlateTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:textColor="@color/black"
+        android:text="Registration Plate"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/tvCustomerEmployeeNameTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/tvRegistrationPlateValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RQS 808"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvRegistrationPlateTitle"
+        app:layout_constraintStart_toStartOf="@+id/tvCustomerEmployeeNameValue"
+        app:layout_constraintTop_toTopOf="@+id/tvRegistrationPlateTitle" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
