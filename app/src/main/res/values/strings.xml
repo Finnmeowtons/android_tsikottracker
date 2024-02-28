@@ -7,4 +7,6 @@
         <item>Service</item>
         <item>Product</item>
     </string-array>
+
+    <string name="ok">Ok</string>
 </resources>

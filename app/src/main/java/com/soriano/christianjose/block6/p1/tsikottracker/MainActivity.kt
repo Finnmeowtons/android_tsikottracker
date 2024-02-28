@@ -2,10 +2,15 @@ package com.soriano.christianjose.block6.p1.tsikottracker
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import com.soriano.christianjose.block6.p1.tsikottracker.auth.AuthManager
 import com.soriano.christianjose.block6.p1.tsikottracker.databinding.ActivityMainBinding
 import com.soriano.christianjose.block6.p1.tsikottracker.viewmodel.SharedViewModel
 
@@ -23,11 +28,16 @@ class MainActivity : AppCompatActivity() {
         sharedViewModel.appbarTitle.observe(this) { newTitle ->
             binding.topAppBar.title = newTitle
         }
-
-
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         navController = navHostFragment.navController
+
+
+
+
+        binding.topAppBar.setNavigationOnClickListener {
+            binding.drawerLayout.openDrawer(GravityCompat.START)
+        }
 
         binding.navView.setNavigationItemSelectedListener {menuItem ->
 
@@ -36,9 +46,9 @@ class MainActivity : AppCompatActivity() {
                 R.id.item_record -> navController.navigate(R.id.action_side_nav_pop_up_to_record)
                 R.id.item_analytics -> navController.navigate(R.id.action_side_nav_pop_up_to_analytic)
                 R.id.item_offers -> navController.navigate(R.id.action_side_nav_pop_up_to_offer)
-                R.id.customerFragment -> navController.navigate(R.id.action_side_nav_pop_up_to_customer)
+                R.id.item_customers -> navController.navigate(R.id.action_side_nav_pop_up_to_customer)
                 R.id.item_employees -> navController.navigate(R.id.action_side_nav_pop_up_to_employee)
-                R.id.settingsFragment -> navController.navigate(R.id.action_side_nav_pop_up_to_settings)
+                R.id.item_settings -> navController.navigate(R.id.action_side_nav_pop_up_to_settings)
             }
 
             binding.drawerLayout.closeDrawers()

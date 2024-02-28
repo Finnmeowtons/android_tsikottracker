@@ -36,7 +36,6 @@
                 app:layout_scrollEffect="compress"
                 android:minHeight="?attr/actionBarSize"
                 app:title="Dashboard"
-                app:titleCentered="true"
                 app:navigationIcon="@drawable/menu_fill0_wght400_grad0_opsz24" />
 
         </com.google.android.material.appbar.AppBarLayout>

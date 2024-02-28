@@ -6,13 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.soriano.christianjose.block6.p1.tsikottracker.databinding.FragmentCustomerBinding
+import com.soriano.christianjose.block6.p1.tsikottracker.viewmodel.SharedViewModel
 
 
 class CustomerFragment : Fragment() {
     private var _binding: FragmentCustomerBinding? = null
     private val binding get() = _binding!!
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -20,6 +23,7 @@ class CustomerFragment : Fragment() {
     ): View {
         _binding = FragmentCustomerBinding.inflate(inflater, container, false)
         val view = binding.root
+        sharedViewModel.updateAppBarTitle("Customers")
 
         requireActivity().onBackPressedDispatcher.addCallback(this) {
             findNavController().navigate(R.id.action_side_nav_pop_up_to_dashboard)

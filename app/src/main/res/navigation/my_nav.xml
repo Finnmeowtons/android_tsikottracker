@@ -2,8 +2,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/my_nav"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/loginFragment"
+    android:id="@+id/my_nav">
 
     <!-- Action back to destination which launched into this in_game_nav_graph -->
     <action android:id="@+id/action_side_nav_pop_up_to_dashboard"
@@ -41,6 +41,16 @@
         app:popUpTo="@id/my_nav"
         app:popUpToInclusive="true"  />
 
+    <action
+        android:id="@+id/action_to_companySetupFragment"
+        app:destination="@id/companySetupFragment"
+        app:popUpTo="@id/my_nav"
+        app:popUpToInclusive="true"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
     <fragment
         android:id="@+id/companySetupFragment"
         android:name="com.soriano.christianjose.block6.p1.tsikottracker.CompanySetupFragment"
@@ -53,24 +63,12 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
-        <action
-            android:id="@+id/action_companySetupFragment_to_companyDashboardFragment"
-            app:destination="@id/companyDashboardFragment" />
     </fragment>
     <fragment
         android:id="@+id/addServiceFragment"
         android:name="com.soriano.christianjose.block6.p1.tsikottracker.AddServiceFragment"
         android:label="fragment_add_service"
-        tools:layout="@layout/fragment_add_service" >
-        <action
-            android:id="@+id/action_addServiceFragment_to_companyDashboardFragment"
-            app:destination="@id/companyDashboardFragment"
-
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
-    </fragment>
+        tools:layout="@layout/fragment_add_service" />
     <fragment
         android:id="@+id/companyDashboardFragment"
         android:name="com.soriano.christianjose.block6.p1.tsikottracker.CompanyDashboardFragment"
@@ -88,20 +86,15 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_loginFragment_to_forgotPasswordFragment"
+            app:destination="@id/forgotPasswordFragment" />
     </fragment>
     <fragment
         android:id="@+id/registrationFragment"
         android:name="com.soriano.christianjose.block6.p1.tsikottracker.RegistrationFragment"
         android:label="fragment_registration"
         tools:layout="@layout/fragment_registration" >
-        <action
-            android:id="@+id/action_registrationFragment_to_companySetupFragment"
-            app:destination="@id/companySetupFragment"
-
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/recordFragment2"
@@ -133,4 +126,19 @@
         android:name="com.soriano.christianjose.block6.p1.tsikottracker.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="com.soriano.christianjose.block6.p1.tsikottracker.ForgotPasswordFragment"
+        android:label="fragment_forgot_password"
+        tools:layout="@layout/fragment_forgot_password" >
+        <action
+            android:id="@+id/forgotPasswordDialogId"
+            app:destination="@+id/forgotPasswordDialog"/>
+    </fragment>
+
+
+    <dialog
+        android:id="@+id/action_forgotPasswordDialog"
+        android:name="com.soriano.christianjose.block6.p1.tsikottracker.dialog.ForgotPasswordDialogFragment"/>
+
 </navigation>

@@ -67,7 +67,7 @@ class AddServiceFragment : Fragment() {
                         if (response.isSuccessful) {
                             val createdOffer = response.body()
                             Log.d("MyTag", "Response: $createdOffer")
-                            findNavController().navigate(R.id.action_addServiceFragment_to_companyDashboardFragment)
+                            findNavController().navigate(R.id.action_side_nav_pop_up_to_dashboard)
                         } else {
                             Log.e("MyTag", "API Error: ${response.code()} - ${response.message()}")
                         }
