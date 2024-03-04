@@ -1,17 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="64dp"
     tools:context=".ShowCompaniesFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvCompanies"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_companies"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"
+        android:minHeight="648dp">
+
+        <Button
+            android:id="@+id/btnJoinOrCreate"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="26dp"
+            android:layout_height="wrap_content"
+            android:text="Join or Start a Company"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
 
-</FrameLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCompanies"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="32dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnJoinOrCreate"
+            tools:itemCount="5"
+            tools:listitem="@layout/item_companies" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

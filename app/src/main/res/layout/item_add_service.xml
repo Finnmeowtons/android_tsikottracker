@@ -10,15 +10,20 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/offerLayout"
         app:endIconMode="clear_text"
         android:layout_width="310dp"
         android:layout_height="wrap_content"
+        app:errorIconDrawable="@null"
         app:errorEnabled="true"
-        android:hint="Service">
+        android:hint="Offer">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etServiceInput"
             android:layout_width="match_parent"
+            android:maxLength="255"
+            android:singleLine="true"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 "
             android:layout_height="match_parent" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -30,7 +35,8 @@
         android:orientation="horizontal">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/menu"
+            android:id="@+id/typeLayout"
+            app:errorIconDrawable="@null"
             app:errorEnabled="true"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="150dp"
@@ -50,17 +56,24 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/priceLayout"
             android:layout_width="150dp"
+            app:errorIconDrawable="@null"
             app:errorEnabled="true"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
             app:suffixText="₱"
+            app:counterEnabled="true"
+            app:counterMaxLength="9"
             android:hint="Price">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etServicePriceInput"
                 android:layout_width="match_parent"
+                android:maxLength="9"
                 android:inputType="number"
+                android:singleLine="true"
+                android:digits="0123456789"
                 android:layout_height="match_parent" />
 
         </com.google.android.material.textfield.TextInputLayout>

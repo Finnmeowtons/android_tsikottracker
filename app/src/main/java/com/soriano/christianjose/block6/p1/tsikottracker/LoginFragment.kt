@@ -9,10 +9,9 @@ import android.view.ViewGroup
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.appbar.AppBarLayout
-import com.soriano.christianjose.block6.p1.tsikottracker.auth.AuthManager
+import com.soriano.christianjose.block6.p1.tsikottracker.auth.AuthUserManager
 import com.soriano.christianjose.block6.p1.tsikottracker.auth.api.LoginApi
 import com.soriano.christianjose.block6.p1.tsikottracker.auth.api.LogoutApi
-import com.soriano.christianjose.block6.p1.tsikottracker.auth.data.LaravelAuthenticationResponse
 import com.soriano.christianjose.block6.p1.tsikottracker.auth.data.LoginRequest
 import com.soriano.christianjose.block6.p1.tsikottracker.auth.data.TokenResponse
 import com.soriano.christianjose.block6.p1.tsikottracker.databinding.FragmentLoginAndRegisterBinding
@@ -123,9 +122,18 @@ class LoginFragment : Fragment() {
                                 )
 
                                 val receivedToken = response.body()?.token
-                                val authManager = AuthManager(requireContext())
+                                val receivedEmail = response.body()?.email
+                                val receivedUserId = response.body()?.userId
+                                Log.d("MyTag", "$receivedToken || $receivedEmail || $receivedUserId")
+                                val authManager = AuthUserManager(requireContext())
                                 if (receivedToken != null) {
                                     authManager.storeToken(receivedToken)
+                                }
+                                if (receivedEmail != null) {
+                                    authManager.storeEmail(receivedEmail)
+                                }
+                                if (receivedUserId != null) {
+                                    authManager.storeUserId(receivedUserId)
                                 }
                                 activity?.findViewById<AppBarLayout>(R.id.appBarLayout)?.visibility =
                                     View.VISIBLE
@@ -175,9 +183,9 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // ... Your login check logic ...
-        val authManager = AuthManager(requireContext())
+        val authManager = AuthUserManager(requireContext())
         val storedToken = authManager.getStoredToken()
+        Log.d("MyTag", "${authManager.getEmail()} || ${authManager.getStoredUserId()} || ${authManager.getStoredToken()} ")
         if (storedToken != null) {
             // User is logged in
             activity?.findViewById<AppBarLayout>(R.id.appBarLayout)?.visibility =

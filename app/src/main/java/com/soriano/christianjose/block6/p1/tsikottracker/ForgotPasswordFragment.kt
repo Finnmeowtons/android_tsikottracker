@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.soriano.christianjose.block6.p1.tsikottracker.auth.api.ForgotPasswordApi
 import com.soriano.christianjose.block6.p1.tsikottracker.auth.data.ForgotPasswordRequest
+import com.soriano.christianjose.block6.p1.tsikottracker.auth.data.LaravelAuthenticationResponse
 import com.soriano.christianjose.block6.p1.tsikottracker.databinding.FragmentForgotPasswordBinding
 import com.soriano.christianjose.block6.p1.tsikottracker.dialog.ForgotPasswordDialogFragment
 import okhttp3.ResponseBody
@@ -38,7 +39,7 @@ class ForgotPasswordFragment : Fragment() {
 
 
         binding.btnEmail.setOnClickListener {
-
+            binding.emailLayout.error = null
             binding.progressBar.visibility = View.VISIBLE
             binding.view.visibility = View.VISIBLE
 
@@ -49,24 +50,23 @@ class ForgotPasswordFragment : Fragment() {
 
             val forgotPasswordRequest = ForgotPasswordRequest(email)
 
-            service.forgotPassword(forgotPasswordRequest).enqueue(object: Callback<ResponseBody>{
-                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                    if (response.isSuccessful && response.code() in 200..399) {
-                        // Password reset email likely sent
+            service.forgotPassword(forgotPasswordRequest).enqueue(object: Callback<LaravelAuthenticationResponse>{
+                override fun onResponse(call: Call<LaravelAuthenticationResponse>, response: Response<LaravelAuthenticationResponse>) {
+                    if (response.isSuccessful && response.code() == 200) {
                         Log.e("MyTag", "${response.code()} ${response.message()}")
                         binding.progressBar.visibility = View.GONE
                         binding.view.visibility = View.GONE
                         findNavController().navigate(R.id.action_forgotPasswordDialog)
                     } else {
-                        // Handle error (email not found, etc.)
                         Log.e("MyTag", "Forgot Password Failed: ${response.code()} ${response.message()}")
                         binding.progressBar.visibility = View.GONE
                         binding.view.visibility = View.GONE
+                        binding.emailLayout.error = "We can't find a user with that email address."
                         // Show user-friendly error message here
                     }
                 }
 
-                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                override fun onFailure(call: Call<LaravelAuthenticationResponse>, t: Throwable) {
                     // Handle network errors
                     Log.e("MyTag", "Network Failed: $call", t)
                     binding.progressBar.visibility = View.GONE

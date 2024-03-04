@@ -26,7 +26,7 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:hint="CJ Company"
+                android:hint="Company"
                 app:errorEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -40,6 +40,56 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <LinearLayout
+                android:id="@+id/tableHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/seed"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:paddingBottom="16dp"
+                android:paddingTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etCompanyLayout">
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.Material3.LabelLarge"
+                    android:textSize="16sp"
+                    android:layout_weight="2"
+                    android:text="Offer"/>
+
+                <TextView
+                    style="@style/TextAppearance.Material3.LabelLarge"
+                    android:layout_width="match_parent"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_weight="3"
+                    android:layout_height="wrap_content"
+                    android:text="Type"/>
+
+                <TextView
+                    style="@style/TextAppearance.Material3.LabelLarge"
+                    android:layout_width="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="end"
+                    android:textColor="@color/black"
+                    android:layout_weight="3"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:layout_marginEnd="16dp"
+                    android:text="Price"/>
+
+            </LinearLayout>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="0dp"
@@ -47,10 +97,11 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/etCompanyLayout"
+                app:layout_constraintTop_toBottomOf="@+id/tableHeader"
                 tools:itemCount="1"
+                android:layout_marginBottom="60dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_record" />
+                tools:listitem="@layout/item_offer" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -64,6 +115,7 @@
         android:layout_margin="16dp"
         android:src="@drawable/baseline_add_24"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="Add Offer" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

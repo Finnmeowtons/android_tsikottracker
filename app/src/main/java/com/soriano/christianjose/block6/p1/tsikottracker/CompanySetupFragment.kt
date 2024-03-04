@@ -9,11 +9,12 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.appbar.AppBarLayout
 import com.soriano.christianjose.block6.p1.tsikottracker.api.CompanyApi
+import com.soriano.christianjose.block6.p1.tsikottracker.auth.AuthUserManager
 import com.soriano.christianjose.block6.p1.tsikottracker.data.Company
 import com.soriano.christianjose.block6.p1.tsikottracker.databinding.FragmentCompanySetupBinding
-import com.soriano.christianjose.block6.p1.tsikottracker.retrofitclient.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -25,6 +26,7 @@ class CompanySetupFragment : Fragment() {
     private var _binding: FragmentCompanySetupBinding? = null
     private lateinit var retrofit: Retrofit
     private lateinit var companyAPI: CompanyApi
+    private val args : CompanySetupFragmentArgs by navArgs()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -41,27 +43,49 @@ class CompanySetupFragment : Fragment() {
             .build()
 
         companyAPI = retrofit.create(CompanyApi::class.java)
+        if (!args.myArgs){
+            binding.tvCompanySetupTitle.visibility = View.GONE
+        }
+
+
 
 
         binding.btnCreate.setOnClickListener {
             val companyName = binding.etCompanyName.text.toString().trim().lowercase()
+            val authUserManager = AuthUserManager(requireContext())
+            val storedUserId = authUserManager.getStoredUserId()
+            Log.d("MyTag", storedUserId.toString())
 
             if (companyName.isNotBlank()) {
-                val company = Company(id = 0, name = companyName)
-
+                val company = Company(id = 0, name = companyName, owner_id = storedUserId)
                 companyAPI.createCompany(company).enqueue(object : Callback<Company>{
                     override fun onResponse(call: Call<Company>, response: Response<Company>) {
                         if (response.isSuccessful) {
                             val createdCompany = response.body()
-                            Log.d("MyTag", createdCompany.toString())
-                            view.findNavController().navigate(R.id.action_companySetupFragment_to_addServiceFragment)
+                            val companyId = response.body()?.id
+                            if (companyId != null) {
+                                authUserManager.storeCompanyId(companyId)
+                            }
+
+                            Log.d("MyTag", "${createdCompany.toString()} || $companyId")
+
+                            if (args.myArgs){
+                                Log.d("MyTag", "If ${args.myArgs}")
+                                val directions = CompanySetupFragmentDirections.actionCompanySetupFragmentToAddServiceFragment(false)
+                                findNavController().navigate(directions)
+                            } else {
+                                Log.d("MyTag", "Else ${args.myArgs}")
+                                val directions = CompanySetupFragmentDirections.actionCompanySetupFragmentToAddServiceFragment(true)
+                                findNavController().navigate(directions)
+                            }
+
                         } else {
                             // Handle API error
                         }
                     }
 
                     override fun onFailure(call: Call<Company>, t: Throwable) {
-                        TODO("Not yet implemented")
+                        Log.d("MyTag", call.toString(), t)
                     }
 
                 })

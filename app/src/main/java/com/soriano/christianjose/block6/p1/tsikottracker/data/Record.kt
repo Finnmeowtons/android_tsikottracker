@@ -3,14 +3,12 @@ package com.soriano.christianjose.block6.p1.tsikottracker.data
 import java.util.Date
 
 data class Record(
-    val id: Int, // assuming 'id' is an integer
-    val customerId: Long?,
-    val serviceProductId: Long,
-    val price: Double?,
+    val id: Int,
+    val customer_id: Int?,
+    val service_product_id: Long,
+    val price: Int?,
     val date: Date?,
-    val companyId: Long,
+    val company_id: Int,
     val notes: String?,
-    val createdAt: Date, // timestamps() likely includes creation
-    val updatedAt: Date, // and update information
-    val employeeId: Long?
+    val employee_id: Int?
 )

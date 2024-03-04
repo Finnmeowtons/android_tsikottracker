@@ -7,11 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.soriano.christianjose.block6.p1.tsikottracker.auth.AuthUserManager
 import com.soriano.christianjose.block6.p1.tsikottracker.auth.api.RegistrationApi
-import com.soriano.christianjose.block6.p1.tsikottracker.auth.data.LaravelAuthenticationResponse
 import com.soriano.christianjose.block6.p1.tsikottracker.auth.data.RegistrationRequest
+import com.soriano.christianjose.block6.p1.tsikottracker.auth.data.TokenResponse
 import com.soriano.christianjose.block6.p1.tsikottracker.databinding.FragmentRegistrationBinding
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -99,23 +99,40 @@ class RegistrationFragment : Fragment() {
                 binding.progressBar.visibility = View.VISIBLE
                 binding.view.visibility = View.VISIBLE
 
-                service.register(registrationRequest).enqueue(object : Callback<LaravelAuthenticationResponse> {
+                service.register(registrationRequest).enqueue(object : Callback<TokenResponse> {
                     override fun onResponse(
-                        call: Call<LaravelAuthenticationResponse>,
-                        response: Response<LaravelAuthenticationResponse>
+                        call: Call<TokenResponse>,
+                        response: Response<TokenResponse>
                     ) {
                         binding.progressBar.visibility = View.GONE
                         binding.view.visibility = View.GONE
-                        if (response.isSuccessful) {
-                            findNavController().navigate(R.id.action_to_companySetupFragment)
+                        if (response.isSuccessful && response.code() == 201) {
+                            val receivedToken = response.body()?.token
+                            val receivedEmail = response.body()?.email
+                            val receivedUserId = response.body()?.userId
+                            val authManager = AuthUserManager(requireContext())
+                            if (receivedToken != null) {
+                                authManager.storeToken(receivedToken)
+                            }
+                            if (receivedEmail != null) {
+                                authManager.storeEmail(receivedEmail)
+                            }
+                            if (receivedUserId != null) {
+                                authManager.storeUserId(receivedUserId)
+                            }
+
+                            Log.d("MyTag", "Response: $call || ${response.body()} || ${authManager.getStoredUserId()}")
+                            val directions = MyNavDirections.actionToCompanySetupFragment(true)
+                            findNavController().navigate(directions)
                         } else {
                             Log.e("MyTag", "Registration Failed: $call || ${response.body()}")
                         }
                     }
 
-                    override fun onFailure(call: Call<LaravelAuthenticationResponse>, t: Throwable) {
+                    override fun onFailure(call: Call<TokenResponse>, t: Throwable) {
                         binding.progressBar.visibility = View.GONE
                         binding.view.visibility = View.GONE
+                        binding.emailLayout.error = "Email already taken"
                         Log.e("MyTag", "Network Failed: $call")
                     }
                 })

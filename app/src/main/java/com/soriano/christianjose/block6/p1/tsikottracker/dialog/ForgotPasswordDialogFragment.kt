@@ -2,6 +2,7 @@ package com.soriano.christianjose.block6.p1.tsikottracker.dialog
 
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -21,6 +22,11 @@ class ForgotPasswordDialogFragment : DialogFragment() {
             .create()
 
     companion object {
-        const val TAG = "PurchaseConfirmationDialog"
+        const val TAG = "ForgotPasswordDialog"
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        findNavController().popBackStack(R.id.forgotPasswordFragment, true)
     }
 }

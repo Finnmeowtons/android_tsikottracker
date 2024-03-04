@@ -44,10 +44,7 @@ class CompanyAdapter() : RecyclerView.Adapter<CompanyViewHolder>() {
     override fun onBindViewHolder(holder: CompanyViewHolder, position: Int) {
         holder.binding.apply{
             val company = companies[position]
-            tvName.text = company.name
-            tvId.text = company.id.toString()
-            tvOwnerId.text = company.owner_id.toString()
-
+            tvId.text = company.name
         }
     }
 

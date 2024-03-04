@@ -36,11 +36,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
         <item
-            android:id="@+id/item_offers"
+            android:id="@+id/item_companies"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:icon="@drawable/offer"
-            android:title="Offers" />
+            android:icon="@drawable/company"
+            android:title="Companies" />
         <item
             android:id="@+id/item_customers"
             android:layout_width="wrap_content"
@@ -53,7 +53,12 @@
             android:layout_height="wrap_content"
             android:icon="@drawable/employee"
             android:title="Employees"/>
-
+        <item
+            android:id="@+id/item_offers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/offer"
+            android:title="Offers" />
     </menu>
     </item>
 

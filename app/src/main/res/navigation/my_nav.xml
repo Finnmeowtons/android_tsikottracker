@@ -6,6 +6,14 @@
     android:id="@+id/my_nav">
 
     <!-- Action back to destination which launched into this in_game_nav_graph -->
+    <action android:id="@+id/action_logout"
+        app:destination="@id/loginFragment"
+        app:popUpTo="@id/my_nav"
+        app:popUpToInclusive="true"/>
+    <action android:id="@+id/action_side_nav_pop_up_to_company"
+        app:destination="@id/showCompaniesFragment"
+        app:popUpTo="@id/my_nav"
+        app:popUpToInclusive="true"/>
     <action android:id="@+id/action_side_nav_pop_up_to_dashboard"
         app:destination="@id/companyDashboardFragment"
         app:popUpTo="@id/my_nav"
@@ -49,7 +57,7 @@
         app:enterAnim="@anim/nav_default_enter_anim"
         app:exitAnim="@anim/nav_default_exit_anim"
         app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-        app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
 
     <fragment
         android:id="@+id/companySetupFragment"
@@ -63,12 +71,22 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+        <argument
+            android:name="myArgs"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
     <fragment
         android:id="@+id/addServiceFragment"
         android:name="com.soriano.christianjose.block6.p1.tsikottracker.AddServiceFragment"
         android:label="fragment_add_service"
-        tools:layout="@layout/fragment_add_service" />
+        tools:layout="@layout/fragment_add_service">
+        <argument
+            android:name="myArgsAddService"
+            app:argType="boolean"
+            android:defaultValue="false" />
+    </fragment>
+
     <fragment
         android:id="@+id/companyDashboardFragment"
         android:name="com.soriano.christianjose.block6.p1.tsikottracker.CompanyDashboardFragment"
@@ -115,12 +133,20 @@
         android:id="@+id/employeeFragment"
         android:name="com.soriano.christianjose.block6.p1.tsikottracker.EmployeeFragment"
         android:label="fragment_employee"
-        tools:layout="@layout/fragment_employee" />
+        tools:layout="@layout/fragment_employee" >
+        <action
+            android:id="@+id/action_employeeFragment_to_addEmployeeFragment2"
+            app:destination="@id/addEmployeeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/offerFragment"
         android:name="com.soriano.christianjose.block6.p1.tsikottracker.OfferFragment"
         android:label="fragment_offer"
-        tools:layout="@layout/fragment_offer" />
+        tools:layout="@layout/fragment_offer" >
+        <action
+            android:id="@+id/action_offerFragment_to_addServiceFragment"
+            app:destination="@id/addServiceFragment" />
+    </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.soriano.christianjose.block6.p1.tsikottracker.SettingsFragment"
@@ -134,11 +160,24 @@
         <action
             android:id="@+id/forgotPasswordDialogId"
             app:destination="@+id/forgotPasswordDialog"/>
-    </fragment>
-
-
+        </fragment>
     <dialog
         android:id="@+id/action_forgotPasswordDialog"
         android:name="com.soriano.christianjose.block6.p1.tsikottracker.dialog.ForgotPasswordDialogFragment"/>
+    <fragment
+        android:id="@+id/showCompaniesFragment"
+        android:name="com.soriano.christianjose.block6.p1.tsikottracker.ShowCompaniesFragment"
+        android:label="fragment_show_companies"
+        tools:layout="@layout/fragment_show_companies" >
+        <action
+            android:id="@+id/action_showCompaniesFragment_to_companySetupFragment"
+            app:destination="@id/companySetupFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addEmployeeFragment"
+        android:name="com.soriano.christianjose.block6.p1.tsikottracker.AddEmployeeFragment"
+        android:label="fragment_add_employee"
+        tools:layout="@layout/fragment_add_employee" />
+
 
 </navigation>
