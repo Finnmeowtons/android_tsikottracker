@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:background="@drawable/item_border"
-    android:layout_height="107dp">
+    android:layout_height="140dp">
 
     <TextView
         android:id="@+id/tvRegistrationPlateTitle"
@@ -12,7 +12,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         android:textColor="@color/black"
-        android:text="Registration Plate"
+        android:text="Plate Number"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,12 +26,12 @@
         android:text="RQS 808"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/tvRegistrationPlateTitle"
-        app:layout_constraintStart_toEndOf="@id/tvRegistrationPlateTitle"
+        app:layout_constraintStart_toEndOf="@+id/tvRegistrationPlateTitle"
         app:layout_constraintTop_toTopOf="@+id/tvRegistrationPlateTitle" />
 
 
     <TextView
-        android:id="@+id/tvCustomerEmployeeNameTitle"
+        android:id="@+id/tvCustomerNameTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -44,41 +44,71 @@
         app:layout_constraintTop_toBottomOf="@+id/tvRegistrationPlateTitle" />
 
     <TextView
-        android:id="@+id/tvCustomerEmployeeNameValue"
-        android:layout_width="wrap_content"
+        android:id="@+id/tvCustomerNameValue"
+        android:layout_width="0dp"
+        android:layout_marginEnd="16dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:text="Christian Jose Madriaga Soriano"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvCustomerEmployeeNameTitle"
-        app:layout_constraintStart_toStartOf="@+id/tvRegistrationPlateValue"
-        app:layout_constraintTop_toTopOf="@+id/tvCustomerEmployeeNameTitle" />
+        app:layout_constraintBottom_toBottomOf="@+id/tvCustomerNameTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvCustomerNameTitle"
+        app:layout_constraintTop_toTopOf="@+id/tvCustomerNameTitle" />
+
+    <TextView
+        android:id="@+id/tvEmployeeNameTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="16dp"
+        android:text="Employee Name"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCustomerNameTitle" />
+
+    <TextView
+        android:id="@+id/tvEmployeeNameValue"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="8dp"
+        android:text="Christian Jose Madriaga Soriano"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvEmployeeNameTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvEmployeeNameTitle"
+        app:layout_constraintTop_toTopOf="@+id/tvEmployeeNameTitle" />
 
     <TextView
         android:id="@+id/tvOfferTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:text="Offer"
         android:layout_marginTop="12dp"
-        android:text="Service/Product"
         android:textColor="@color/black"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvCustomerEmployeeNameTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/tvEmployeeNameTitle" />
 
-    
+
     <TextView
         android:id="@+id/tvOfferValue"
         android:layout_width="0dp"
-        android:maxLines="1"
-        android:ellipsize="marquee"
-        android:layout_marginEnd="8dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:ellipsize="marquee"
+        android:maxLines="1"
+        android:layout_marginStart="8dp"
         android:text="Body wash, Car wash, Wax, Detailing"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/tvOfferTitle"
         app:layout_constraintEnd_toStartOf="@+id/tvPriceTitle"
-        app:layout_constraintStart_toStartOf="@+id/tvRegistrationPlateValue"
+        app:layout_constraintStart_toEndOf="@+id/tvOfferTitle"
         app:layout_constraintTop_toTopOf="@+id/tvOfferTitle" />
 
     <TextView
@@ -118,7 +148,7 @@
         android:id="@+id/tvPriceTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="12dp"
+        android:layout_marginEnd="4dp"
         android:textColor="@color/black"
         android:text="Total Price"
         android:textSize="14sp"

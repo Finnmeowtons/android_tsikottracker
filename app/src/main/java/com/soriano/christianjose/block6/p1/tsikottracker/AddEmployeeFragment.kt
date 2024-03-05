@@ -8,9 +8,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.appbar.MaterialToolbar
 import com.soriano.christianjose.block6.p1.tsikottracker.adapter.AddEmployeeAdapter
 import com.soriano.christianjose.block6.p1.tsikottracker.api.EmployeeApi
 import com.soriano.christianjose.block6.p1.tsikottracker.auth.AuthUserManager
@@ -36,9 +39,14 @@ class AddEmployeeFragment : Fragment() {
     ): View {
         _binding = FragmentAddEmployeeBinding.inflate(inflater, container, false)
         val view = binding.root
-        activity?.findViewById<AppBarLayout>(R.id.appBarLayout)?.visibility = View.GONE
-        activity?.findViewById<DrawerLayout>(R.id.drawerLayout)
-            ?.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+        activity?.findViewById<DrawerLayout>(R.id.drawerLayout)?.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+        val toolbar = activity?.findViewById<MaterialToolbar>(R.id.topAppBar)
+        toolbar?.setNavigationIcon(R.drawable.arrow_back)
+        toolbar?.setNavigationOnClickListener {
+            if (isAdded) {
+                findNavController().popBackStack()
+            }
+        }
         val authUserManager = AuthUserManager(requireContext())
         val companyId = authUserManager.getStoredCompanyId()
         val storedUserId = authUserManager.getStoredUserId()
@@ -100,12 +108,28 @@ class AddEmployeeFragment : Fragment() {
                     .show()
             }
         }
+
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            if (isAdded) {
+                findNavController().popBackStack()
+            }
+        }
         return view
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        val toolbar = activity?.findViewById<MaterialToolbar>(R.id.topAppBar)
+        toolbar?.setNavigationIcon(R.drawable.menu_fill0_wght400_grad0_opsz24)
+
+        activity?.findViewById<DrawerLayout>(R.id.drawerLayout)
+            ?.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+        val drawerLayout = activity?.findViewById<DrawerLayout>(R.id.drawerLayout)
+        toolbar?.setNavigationOnClickListener {
+            drawerLayout?.openDrawer(GravityCompat.START)
+        }
     }
 
 

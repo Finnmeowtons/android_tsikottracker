@@ -11,7 +11,7 @@
         android:gravity="center"
         android:orientation="vertical"
         android:layout_height="wrap_content"
-        android:minHeight="718dp">
+        android:minHeight="700dp">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvCompanySetupTitle"
@@ -35,11 +35,14 @@
         android:layout_width="280dp"
         android:layout_marginTop="12dp"
         android:layout_height="wrap_content"
+        app:errorIconDrawable="@null"
+        app:errorEnabled="true"
         android:hint="Code"
         app:endIconMode="clear_text">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
+            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&amp;*-_+=?/|:;',."
             android:layout_height="match_parent"/>
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -98,6 +101,8 @@
         android:layout_marginTop="12dp"
         android:layout_height="wrap_content"
         android:hint="Company Name"
+        app:errorIconDrawable="@null"
+        app:errorEnabled="true"
         app:endIconMode="clear_text">
 
         <com.google.android.material.textfield.TextInputEditText

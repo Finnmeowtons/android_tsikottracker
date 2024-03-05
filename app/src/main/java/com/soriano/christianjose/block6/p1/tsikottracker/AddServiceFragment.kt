@@ -6,16 +6,21 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.appbar.MaterialToolbar
 import com.soriano.christianjose.block6.p1.tsikottracker.adapter.AddServiceAdapter
 import com.soriano.christianjose.block6.p1.tsikottracker.api.OfferApi
 import com.soriano.christianjose.block6.p1.tsikottracker.auth.AuthUserManager
 import com.soriano.christianjose.block6.p1.tsikottracker.data.Offer
 import com.soriano.christianjose.block6.p1.tsikottracker.databinding.FragmentAddServiceBinding
+import com.soriano.christianjose.block6.p1.tsikottracker.viewmodel.SharedViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,6 +34,7 @@ class AddServiceFragment : Fragment() {
     private lateinit var retrofit: Retrofit
     private lateinit var offerApi: OfferApi
     private val args : AddServiceFragmentArgs by navArgs()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -40,7 +46,20 @@ class AddServiceFragment : Fragment() {
     ): View {
         _binding = FragmentAddServiceBinding.inflate(inflater, container, false)
         val view = binding.root
-        activity?.findViewById<AppBarLayout>(R.id.appBarLayout)?.visibility = View.GONE
+        sharedViewModel.updateAppBarTitle("Add Offers")
+        if (args.myArgsAddService){
+            binding.textView.visibility = View.INVISIBLE
+            val toolbar = activity?.findViewById<MaterialToolbar>(R.id.topAppBar)
+            toolbar?.setNavigationIcon(R.drawable.arrow_back)
+
+            toolbar?.setNavigationOnClickListener {
+                if(isAdded) {
+                    findNavController().popBackStack()
+                }
+            }
+        } else {
+            activity?.findViewById<AppBarLayout>(R.id.appBarLayout)?.visibility = View.GONE
+        }
         activity?.findViewById<DrawerLayout>(R.id.drawerLayout)?.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
 
@@ -104,10 +123,24 @@ class AddServiceFragment : Fragment() {
                     .setPositiveButton("OK", null)
                     .show()
             }
-
         }
 
-
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            if (args.myArgsAddService){
+                if (isAdded) {
+                    findNavController().popBackStack()
+                }
+            } else {
+                AlertDialog.Builder(requireContext())
+                    .setTitle("Skip Offers?")
+                    .setMessage("You can add offers later by going to the offers tab.")
+                    .setPositiveButton("Continue"){ _, _ ->
+                    findNavController().navigate(R.id.action_side_nav_pop_up_to_dashboard)
+                    }
+                    .setNegativeButton("Cancel", null)
+                    .show()
+            }
+        }
 
         return view
     }
@@ -115,5 +148,15 @@ class AddServiceFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        val toolbar = activity?.findViewById<MaterialToolbar>(R.id.topAppBar)
+        toolbar?.setNavigationIcon(R.drawable.menu_fill0_wght400_grad0_opsz24)
+
+        activity?.findViewById<DrawerLayout>(R.id.drawerLayout)
+            ?.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+
+        val drawerLayout = activity?.findViewById<DrawerLayout>(R.id.drawerLayout)
+        toolbar?.setNavigationOnClickListener {
+            drawerLayout?.openDrawer(GravityCompat.START)
+        }
     }
 }

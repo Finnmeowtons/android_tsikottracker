@@ -31,6 +31,7 @@
             <AutoCompleteTextView
                 android:id="@+id/etCompanySelect"
                 android:layout_width="match_parent"
+                android:singleLine="true"
                 android:layout_height="wrap_content"
                 android:inputType="none"
                 android:maxLines="1" />

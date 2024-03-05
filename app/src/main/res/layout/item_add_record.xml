@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
+
+    <ImageView
+        android:id="@+id/imgCustomer"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@drawable/person"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/customerNameLayout"
+        app:tint="?attr/colorOnSurfaceVariant" />
+
+    <ImageView
+        android:id="@+id/imgOffer"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@drawable/offer"
+        app:tint="?attr/colorOnSurfaceVariant"
+        app:layout_constraintEnd_toEndOf="@+id/imgCustomer"
+        app:layout_constraintStart_toStartOf="@+id/imgCustomer"
+        app:layout_constraintTop_toTopOf="@+id/offerLayout" />
+
+    <ImageView
+        android:id="@+id/imgEmployee"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@drawable/employee"
+        app:tint="?attr/colorOnSurfaceVariant"
+        app:layout_constraintEnd_toEndOf="@+id/imgCustomer"
+        app:layout_constraintStart_toStartOf="@+id/imgCustomer"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/customerNameLayout"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Customer Name"
+        app:endIconMode="clear_text"
+        app:errorEnabled="true"
+        app:errorIconDrawable="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imgCustomer"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etCustomerName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
+            android:maxLength="255"
+            android:singleLine="true" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/plateNumberLayout"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        android:hint="Plate Number"
+        app:endIconMode="clear_text"
+        app:errorEnabled="true"
+        app:errorIconDrawable="@null"
+        app:layout_constraintEnd_toEndOf="@+id/customerNameLayout"
+        app:layout_constraintStart_toStartOf="@+id/customerNameLayout"
+        app:layout_constraintTop_toBottomOf="@+id/customerNameLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etPlateNumber"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 "
+            android:maxLength="255"
+            android:singleLine="true" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/offerLayout"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        android:hint="Offer"
+        app:endIconMode="clear_text"
+        app:errorEnabled="true"
+        app:errorIconDrawable="@null"
+        app:layout_constraintEnd_toEndOf="@+id/plateNumberLayout"
+        app:layout_constraintStart_toStartOf="@+id/plateNumberLayout"
+        app:layout_constraintTop_toBottomOf="@+id/plateNumberLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etOffer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 "
+            android:maxLength="255"
+            android:singleLine="true" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@+id/offerLayout"
+        app:layout_constraintStart_toStartOf="@+id/offerLayout"
+        app:layout_constraintTop_toBottomOf="@+id/offerLayout">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/typeLayout"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:hint="Type"
+            app:errorEnabled="true"
+            android:layout_weight="1"
+            app:errorIconDrawable="@null">
+
+            <AutoCompleteTextView
+                android:id="@+id/etServiceType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                android:textSize="15sp"
+                android:maxLines="1"
+                app:simpleItems="@array/service_type" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/priceLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Price"
+            app:counterEnabled="true"
+            android:layout_marginEnd="3dp"
+            android:layout_weight="1.2"
+            app:counterMaxLength="9"
+            app:errorEnabled="true"
+            app:errorIconDrawable="@null"
+            app:suffixText="₱">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etServicePriceInput"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:digits="0123456789"
+                android:textSize="15sp"
+                android:inputType="number"
+                android:maxLength="9"
+                android:singleLine="true" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/employeeNameLayout"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        android:hint="Employee Name"
+        app:endIconMode="clear_text"
+        app:errorEnabled="true"
+        app:errorIconDrawable="@null"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etEmployeeName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 "
+            android:maxLength="255"
+            android:singleLine="true" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/positionLayout"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        android:hint="Employee Position"
+        app:endIconMode="clear_text"
+        app:errorEnabled="true"
+        app:errorIconDrawable="@null"
+        app:layout_constraintEnd_toEndOf="@+id/employeeNameLayout"
+        app:layout_constraintStart_toStartOf="@+id/employeeNameLayout"
+        app:layout_constraintTop_toBottomOf="@+id/employeeNameLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etPosition"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 "
+            android:maxLength="255"
+            android:singleLine="true" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/notesLayout"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        android:hint="Notes"
+        app:layout_constraintEnd_toEndOf="@+id/positionLayout"
+        app:layout_constraintStart_toStartOf="@+id/positionLayout"
+        app:layout_constraintTop_toBottomOf="@+id/positionLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etNotes"
+            android:layout_width="match_parent"
+            android:minLines="2"
+            android:layout_height="match_parent" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

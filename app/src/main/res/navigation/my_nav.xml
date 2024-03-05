@@ -118,7 +118,11 @@
         android:id="@+id/recordFragment2"
         android:name="com.soriano.christianjose.block6.p1.tsikottracker.RecordFragment"
         android:label="fragment_record"
-        tools:layout="@layout/fragment_record" />
+        tools:layout="@layout/fragment_record" >
+        <action
+            android:id="@+id/action_recordFragment2_to_addRecordFragment"
+            app:destination="@id/addRecordFragment" />
+    </fragment>
     <fragment
         android:id="@+id/analyticFragment"
         android:name="com.soriano.christianjose.block6.p1.tsikottracker.AnalyticFragment"
@@ -178,6 +182,11 @@
         android:name="com.soriano.christianjose.block6.p1.tsikottracker.AddEmployeeFragment"
         android:label="fragment_add_employee"
         tools:layout="@layout/fragment_add_employee" />
+    <fragment
+        android:id="@+id/addRecordFragment"
+        android:name="com.soriano.christianjose.block6.p1.tsikottracker.AddRecordFragment"
+        android:label="fragment_add_record"
+        tools:layout="@layout/fragment_add_record" />
 
 
 </navigation>
