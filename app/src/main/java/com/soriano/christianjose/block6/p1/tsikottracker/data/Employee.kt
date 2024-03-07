@@ -7,5 +7,5 @@ data class Employee(
     var name : String,
     var contact_details : String?,
     var position : String,
-    val company_id : Int?
+    var company_id : Int?
 )

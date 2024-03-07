@@ -92,7 +92,6 @@ class LoginFragment : Fragment() {
                 binding.emailLayout.error = null
                 isEmail = true
             }
-
             if (passwordField.text?.trim().isNullOrEmpty()){
                 binding.passwordLayout.error = "Field is empty"
                 isPassword = false
@@ -100,8 +99,6 @@ class LoginFragment : Fragment() {
                 isPassword = true
                 binding.passwordLayout.error = null
             }
-
-
             if (isEmail && isPassword) {
                 binding.progressBar.visibility = View.VISIBLE
                 binding.view.visibility = View.VISIBLE

@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="Add Services"
+            android:text="Add Offers"
             android:textColor="@color/black"
             android:textSize="32sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -26,6 +26,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvAddServices"
+            android:layout_marginEnd="48dp"
+            android:layout_marginStart="48dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -44,7 +46,7 @@
             android:id="@+id/btnAddService"
             android:layout_width="260dp"
             android:layout_height="wrap_content"
-            android:text="Add Service"
+            android:text="Add Offer"
             app:layout_constraintBottom_toTopOf="@+id/btnSubmit"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

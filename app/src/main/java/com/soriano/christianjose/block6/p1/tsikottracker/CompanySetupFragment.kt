@@ -71,7 +71,7 @@ class CompanySetupFragment : Fragment() {
 
 
         binding.btnCreate.setOnClickListener {
-            val companyName = binding.etCompanyName.text.toString().trim().lowercase()
+            val companyName = binding.etCompanyName.text.toString().trim()
             val authUserManager = AuthUserManager(requireContext())
             val storedUserId = authUserManager.getStoredUserId()
             Log.d("MyTag", storedUserId.toString())
@@ -91,16 +91,24 @@ class CompanySetupFragment : Fragment() {
 
                             if (args.myArgs){
                                 Log.d("MyTag", "If ${args.myArgs}")
-                                val directions = CompanySetupFragmentDirections.actionCompanySetupFragmentToAddServiceFragment(false)
-                                findNavController().navigate(directions)
+                                if (isAdded) {
+                                    val directions =
+                                        CompanySetupFragmentDirections.actionCompanySetupFragmentToAddServiceFragment(
+                                            false
+                                        )
+                                    findNavController().navigate(directions)
+                                }
                             } else {
                                 Log.d("MyTag", "Else ${args.myArgs}")
-                                val directions = CompanySetupFragmentDirections.actionCompanySetupFragmentToAddServiceFragment(true)
-                                findNavController().navigate(directions)
+                                if (isAdded) {
+                                    val directions =
+                                        CompanySetupFragmentDirections.actionCompanySetupFragmentToAddServiceFragment(
+                                            true
+                                        )
+                                    findNavController().navigate(directions)
+                                }
                             }
 
-                        } else {
-                            // Handle API error
                         }
                     }
 
@@ -110,7 +118,7 @@ class CompanySetupFragment : Fragment() {
 
                 })
             } else {
-                // Display error (e.g., in a TextView)
+                binding.companyNameLayout.error = "Should at least have 3 characters"
             }
 
         }

@@ -14,6 +14,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.soriano.christianjose.block6.p1.tsikottracker.adapter.AddEmployeeAdapter
 import com.soriano.christianjose.block6.p1.tsikottracker.api.EmployeeApi
 import com.soriano.christianjose.block6.p1.tsikottracker.auth.AuthUserManager
@@ -101,7 +102,7 @@ class AddEmployeeFragment : Fragment() {
                     })
                 }
             } else {
-                AlertDialog.Builder(requireContext())
+                MaterialAlertDialogBuilder(requireContext())
                     .setTitle("Empty Fields")
                     .setMessage("Please enter values.")
                     .setPositiveButton("OK", null)

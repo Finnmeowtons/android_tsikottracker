@@ -18,10 +18,14 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.soriano.christianjose.block6.p1.tsikottracker.adapter.AddRecordAdapter
+import com.soriano.christianjose.block6.p1.tsikottracker.adapter.AddServiceAdapter
 import com.soriano.christianjose.block6.p1.tsikottracker.api.CompanyApi
 import com.soriano.christianjose.block6.p1.tsikottracker.api.RecordApi
 import com.soriano.christianjose.block6.p1.tsikottracker.auth.AuthUserManager
 import com.soriano.christianjose.block6.p1.tsikottracker.data.Company
+import com.soriano.christianjose.block6.p1.tsikottracker.data.Offer
 import com.soriano.christianjose.block6.p1.tsikottracker.data.Record
 import com.soriano.christianjose.block6.p1.tsikottracker.databinding.FragmentAddRecordBinding
 import com.soriano.christianjose.block6.p1.tsikottracker.viewmodel.SharedViewModel
@@ -37,6 +41,7 @@ class AddRecordFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var retrofit: Retrofit
     private lateinit var recordApi: RecordApi
+    private lateinit var services : List<Offer>
     private val sharedViewModel: SharedViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -60,32 +65,27 @@ class AddRecordFragment : Fragment() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val authUserManager = AuthUserManager(requireContext())
-        var companyId = authUserManager.getStoredCompanyId()
+        val companyId = authUserManager.getStoredCompanyId()
         val storedUserId = authUserManager.getStoredUserId()
+
+        val adapter = AddServiceAdapter(companyId, requireContext())
+        binding.rvAddServices.adapter = adapter
+
+        binding.btnAddOffer.setOnClickListener {
+            adapter.addItem()
+        }
 
         recordApi = retrofit.create(RecordApi::class.java)
         toolbar?.setOnMenuItemClickListener {menuItem ->
             var isValidated = true
             when (menuItem.itemId) {
                 R.id.check ->{
+                    if (adapter.validateFieldsRecord(binding, adapter)) {
+                        services = adapter.getServices()
+                    }
                     binding.apply {
                         if (etPlateNumber.text.isNullOrEmpty()){
                             plateNumberLayout.error = "Please enter plate number"
-                            isValidated = false
-                        }
-                        if (etOffer.text.isNullOrEmpty()){
-                            offerLayout.error = "Please enter an offer"
-                            isValidated = false
-                        }
-                        if (etServiceType.text.isNullOrEmpty()){
-                            typeLayout.error = "Please select a type of offer"
-                            isValidated = false
-                        }
-                        if (etServicePriceInput.text.isNullOrEmpty()){
-                            priceLayout.error = "Enter price"
-                            isValidated = false
-                        } else if (etServicePriceInput.text.toString().toInt() <= 0){
-                            priceLayout.error = "Must be more than 1"
                             isValidated = false
                         }
                         if (etEmployeeName.text?.isNotEmpty() == true && etPosition.text.isNullOrEmpty()){
@@ -93,7 +93,7 @@ class AddRecordFragment : Fragment() {
                             isValidated = false
                         }
                         if (!isValidated){
-                            AlertDialog.Builder(requireContext())
+                            MaterialAlertDialogBuilder(requireContext())
                                 .setTitle("Invalid Fields")
                                 .setMessage("Please ensure all required fields are filled in correctly.")
                                 .setPositiveButton("OK", null)
@@ -102,19 +102,15 @@ class AddRecordFragment : Fragment() {
                         }
                         val customerName = etCustomerName.text.toString()
                         val plateNumber = etPlateNumber.text.toString()
-                        val offer = etOffer.text.toString()
-                        val offerType = etServiceType.text.toString()
-                        val offerPrice = etServicePriceInput.text.toString().toInt()
                         val employeeName = etEmployeeName.text.toString()
                         val employeePosition = etPosition.text.toString()
                         val notes = etNotes.text.toString()
+
                         val record = Record(
                             id = 0,
                             customer_name= customerName,
                             customer_car_plate_number = plateNumber,
-                            offer = offer,
-                            price = offerPrice,
-                            type = offerType,
+                            offers = services,
                             employee_name = employeeName,
                             employee_position = employeePosition,
                             notes = notes,
@@ -133,6 +129,8 @@ class AddRecordFragment : Fragment() {
                                     if(isAdded){
                                         findNavController().popBackStack()
                                     }
+                                } else {
+                                    Log.d("MyTag", "$call || $response")
                                 }
                             }
 

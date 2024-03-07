@@ -100,6 +100,7 @@
         android:layout_width="280dp"
         android:layout_marginTop="12dp"
         android:layout_height="wrap_content"
+        android:id="@+id/companyNameLayout"
         android:hint="Company Name"
         app:errorIconDrawable="@null"
         app:errorEnabled="true"

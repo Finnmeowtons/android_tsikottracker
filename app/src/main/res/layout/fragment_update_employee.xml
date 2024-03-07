@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:layout_gravity="center"
+    android:layout_marginBottom="128dp"
+    android:gravity="center_horizontal"
+    android:layout_height="wrap_content"
+    tools:context=".UpdateEmployeeFragment">
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/nameLayout"
+        app:endIconMode="clear_text"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        app:errorIconDrawable="@null"
+        app:errorEnabled="true"
+        android:hint="Name of the employee">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etName"
+            android:layout_width="match_parent"
+            android:maxLength="255"
+            android:singleLine="true"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 "
+            android:layout_height="match_parent" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/positionLayout"
+        app:endIconMode="clear_text"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        app:errorIconDrawable="@null"
+        app:errorEnabled="true"
+        android:hint="Position">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etPosition"
+            android:layout_width="match_parent"
+            android:maxLength="255"
+            android:singleLine="true"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 "
+            android:layout_height="match_parent" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/contactLayout"
+        app:endIconMode="clear_text"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        app:errorIconDrawable="@null"
+        app:errorEnabled="true"
+        android:hint="Contact Detail (Optional)">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etContactDetail"
+            android:layout_width="match_parent"
+            android:maxLength="255"
+            android:singleLine="true"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.-_@ "
+            android:layout_height="match_parent" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnConfirmEdit"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Confirm Edit"/>
+</LinearLayout>

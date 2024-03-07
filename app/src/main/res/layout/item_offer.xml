@@ -36,13 +36,14 @@
         android:layout_weight="3">
         <TextView
             android:id="@+id/tvPrice"
-            android:layout_width="52dp"
+            android:layout_width="wrap_content"
+            android:minEms="9"
             android:gravity="end"
             android:layout_height="wrap_content"
             android:text="440000000"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="13dp"
             android:layout_height="wrap_content"
             android:text="₱"/>
     </LinearLayout>

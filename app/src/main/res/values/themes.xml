@@ -1,7 +1,9 @@
-
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="AppTheme" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimary">@color/md_theme_light_primary</item>
+        <item name="android:statusBarColor">#FFC299</item>
+        <item name="android:navigationBarColor">#FEFEFE</item>
         <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>
         <item name="colorPrimaryContainer">@color/md_theme_light_primaryContainer</item>
         <item name="colorOnPrimaryContainer">@color/md_theme_light_onPrimaryContainer</item>
@@ -27,5 +29,18 @@
         <item name="colorOnSurfaceInverse">@color/md_theme_light_inverseOnSurface</item>
         <item name="colorSurfaceInverse">@color/md_theme_light_inverseSurface</item>
         <item name="colorPrimaryInverse">@color/md_theme_light_inversePrimary</item>
+        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.App.BottomSheetDialog</item>
+    </style>
+
+
+
+    <style name="ThemeOverlay.App.BottomSheetDialog" parent="ThemeOverlay.Material3.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/ModalBottomSheetDialog</item>
+        <item name="colorPrimary">#000000</item>
+    </style>
+
+    <style name="ModalBottomSheetDialog" parent="Widget.Material3.BottomSheet.Modal">
+        <item name="backgroundTint">#FEFEFE</item>
+        <item name="colorPrimary">#000000</item>
     </style>
 </resources>

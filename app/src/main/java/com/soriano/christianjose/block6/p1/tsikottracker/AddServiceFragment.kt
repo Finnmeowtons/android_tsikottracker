@@ -1,6 +1,5 @@
 package com.soriano.christianjose.block6.p1.tsikottracker
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.soriano.christianjose.block6.p1.tsikottracker.adapter.AddServiceAdapter
 import com.soriano.christianjose.block6.p1.tsikottracker.api.OfferApi
 import com.soriano.christianjose.block6.p1.tsikottracker.auth.AuthUserManager
@@ -33,7 +33,7 @@ class AddServiceFragment : Fragment() {
     private var _binding: FragmentAddServiceBinding? = null
     private lateinit var retrofit: Retrofit
     private lateinit var offerApi: OfferApi
-    private val args : AddServiceFragmentArgs by navArgs()
+    private val args: AddServiceFragmentArgs by navArgs()
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
     // This property is only valid between onCreateView and
@@ -47,20 +47,22 @@ class AddServiceFragment : Fragment() {
         _binding = FragmentAddServiceBinding.inflate(inflater, container, false)
         val view = binding.root
         sharedViewModel.updateAppBarTitle("Add Offers")
-        if (args.myArgsAddService){
+        if (args.myArgsAddService) {
             binding.textView.visibility = View.INVISIBLE
             val toolbar = activity?.findViewById<MaterialToolbar>(R.id.topAppBar)
             toolbar?.setNavigationIcon(R.drawable.arrow_back)
 
             toolbar?.setNavigationOnClickListener {
-                if(isAdded) {
+                if (isAdded) {
                     findNavController().popBackStack()
                 }
             }
         } else {
+
             activity?.findViewById<AppBarLayout>(R.id.appBarLayout)?.visibility = View.GONE
         }
-        activity?.findViewById<DrawerLayout>(R.id.drawerLayout)?.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+        activity?.findViewById<DrawerLayout>(R.id.drawerLayout)
+            ?.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
 
         retrofit = Retrofit.Builder()
@@ -73,7 +75,7 @@ class AddServiceFragment : Fragment() {
         val authUserManager = AuthUserManager(requireContext())
         val storedCompanyId = authUserManager.getStoredCompanyId()
 
-        val adapter = AddServiceAdapter(storedCompanyId)
+        val adapter = AddServiceAdapter(storedCompanyId, requireContext())
         binding.rvAddServices.adapter = adapter
 
         binding.btnAddService.setOnClickListener {
@@ -81,9 +83,9 @@ class AddServiceFragment : Fragment() {
         }
 
         binding.btnSubmit.setOnClickListener {
-            if (adapter.validateFields(binding, adapter)) {
+            if (adapter.validateFieldsService(binding, adapter)) {
                 val services = adapter.getServices()
-                for(service in services){
+                for (service in services) {
                     Log.d("MyTag", service.toString())
 
                     offerApi.createOffer(service).enqueue(object : Callback<Offer> {
@@ -93,14 +95,16 @@ class AddServiceFragment : Fragment() {
                                 Log.d("MyTag", "Response: $createdOffer")
 
                                 if (isAdded) { // Check if the fragment is attached
-                                    if (args.myArgsAddService){
+                                    if (args.myArgsAddService) {
                                         findNavController().popBackStack()
                                     } else {
                                         findNavController().navigate(R.id.action_side_nav_pop_up_to_offer)
                                     }
 
-                                    activity?.findViewById<AppBarLayout>(R.id.appBarLayout)?.visibility = View.VISIBLE
-                                    activity?.findViewById<DrawerLayout>(R.id.drawerLayout)?.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+                                    activity?.findViewById<AppBarLayout>(R.id.appBarLayout)?.visibility =
+                                        View.VISIBLE
+                                    activity?.findViewById<DrawerLayout>(R.id.drawerLayout)
+                                        ?.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
                                 }
 
                             } else {
@@ -117,7 +121,7 @@ class AddServiceFragment : Fragment() {
                     })
                 }
             } else {
-                AlertDialog.Builder(requireContext())
+                MaterialAlertDialogBuilder(requireContext())
                     .setTitle("Invalid Fields")
                     .setMessage("Please correct the errors in the form.")
                     .setPositiveButton("OK", null)
@@ -126,16 +130,21 @@ class AddServiceFragment : Fragment() {
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(this) {
-            if (args.myArgsAddService){
+            if (args.myArgsAddService) {
                 if (isAdded) {
-                    findNavController().popBackStack()
+                    findNavController().popBackStack(R.id.action_to_companySetupFragment, true)
                 }
             } else {
-                AlertDialog.Builder(requireContext())
+                MaterialAlertDialogBuilder(requireContext())
                     .setTitle("Skip Offers?")
                     .setMessage("You can add offers later by going to the offers tab.")
-                    .setPositiveButton("Continue"){ _, _ ->
-                    findNavController().navigate(R.id.action_side_nav_pop_up_to_dashboard)
+                    .setPositiveButton("Continue") { _, _ ->
+                        activity?.findViewById<AppBarLayout>(R.id.appBarLayout)?.visibility =
+                            View.VISIBLE
+                        activity?.findViewById<DrawerLayout>(R.id.drawerLayout)
+                            ?.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+                        findNavController().navigate(R.id.action_side_nav_pop_up_to_dashboard)
+
                     }
                     .setNegativeButton("Cancel", null)
                     .show()

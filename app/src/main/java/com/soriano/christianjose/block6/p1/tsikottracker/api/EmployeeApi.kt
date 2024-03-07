@@ -15,4 +15,8 @@ interface EmployeeApi {
     @Headers("Content-Type: application/json")
     @POST("api/employees")
     fun createEmployee(@Body employee: Employee): Call<Employee>
+
+
+    @POST("api/employees/android/delete/{id}")
+    fun deleteEmployee(@Path("id") id: Int, @Body offer:Employee): Call<Employee>
 }

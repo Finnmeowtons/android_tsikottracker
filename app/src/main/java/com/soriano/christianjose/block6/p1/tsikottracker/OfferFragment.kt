@@ -48,7 +48,7 @@ class OfferFragment : Fragment() {
         val view = binding.root
         sharedViewModel.updateAppBarTitle("Offers")
         val authUserManager = AuthUserManager(requireContext())
-        val companyId = authUserManager.getStoredCompanyId()
+        var companyId = authUserManager.getStoredCompanyId()
         val storedUserId = authUserManager.getStoredUserId()
         companyNames = mutableListOf<String>()
         companies = emptyList()
@@ -61,57 +61,120 @@ class OfferFragment : Fragment() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        val recyclerViewAdapter = OfferAdapter()
+        offerApi = retrofit.create(OfferApi::class.java)
+        var recyclerViewAdapter = OfferAdapter(offerApi, parentFragmentManager, companyId, findNavController())
         binding.recyclerView.adapter = recyclerViewAdapter
 
-        offerApi = retrofit.create(OfferApi::class.java)
-        offerApi.getOffer(companyId).enqueue(object : Callback<List<Offer>>{
-            override fun onResponse(call: Call<List<Offer>>, response: Response<List<Offer>>) {
-                if (response.isSuccessful) {
-                    val offers = response.body()
-                    Log.d("MyTag", "$offers || ${response.body()}")
-                    if (offers != null) {
-                        recyclerViewAdapter.offers = offers
+
+
+        if (isAdded) {
+            offerApi.getOffer(companyId).enqueue(object : Callback<List<Offer>> {
+                override fun onResponse(call: Call<List<Offer>>, response: Response<List<Offer>>) {
+                    if (response.isSuccessful) {
+                        val offers = response.body()
+                        Log.d("MyTag", "$offers || ${response.body()}")
+                        if (offers != null) {
+                            recyclerViewAdapter.offers = offers
+                            binding.apply {
+                                var click = 0
+                                tvOffer.setOnClickListener {
+                                    imgSortOffer.visibility = View.VISIBLE
+                                    imgSortPrice.visibility = View.INVISIBLE
+                                    imgSortType.visibility = View.INVISIBLE
+
+                                    if (click == 0) {
+                                        imgSortOffer.setImageResource(R.drawable.arrow_downward)
+                                        recyclerViewAdapter.offers = offers.sortedByDescending { it.name }
+                                        click += 1
+                                    } else {
+                                        imgSortOffer.setImageResource(R.drawable.arrow_upward)
+                                        recyclerViewAdapter.offers = offers.sortedBy { it.name }
+                                        click = 0
+                                    }
+                                }
+
+                                tvPrice.setOnClickListener {
+                                    imgSortOffer.visibility = View.INVISIBLE
+                                    imgSortPrice.visibility = View.VISIBLE
+                                    imgSortType.visibility = View.INVISIBLE
+
+                                    if (click == 0) {
+                                        imgSortPrice.setImageResource(R.drawable.arrow_downward)
+                                        recyclerViewAdapter.offers = offers.sortedByDescending { it.price }
+                                        click += 1
+                                    } else {
+                                        imgSortPrice.setImageResource(R.drawable.arrow_upward)
+                                        recyclerViewAdapter.offers = offers.sortedBy { it.price }
+                                        click = 0
+                                    }
+                                }
+
+                                tvType.setOnClickListener {
+                                    imgSortOffer.visibility = View.INVISIBLE
+                                    imgSortPrice.visibility = View.INVISIBLE
+                                    imgSortType.visibility = View.VISIBLE
+
+                                    if (click == 0) {
+                                        imgSortType.setImageResource(R.drawable.arrow_downward)
+                                        recyclerViewAdapter.offers = offers.sortedByDescending { it.type }
+                                        click += 1
+                                    } else {
+                                        imgSortType.setImageResource(R.drawable.arrow_upward)
+                                        recyclerViewAdapter.offers = offers.sortedBy { it.type }
+                                        click = 0
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        // Handle API error
                     }
-                } else {
-                    // Handle API error
                 }
-            }
 
-            override fun onFailure(call: Call<List<Offer>>, t: Throwable) {
-                Log.d("MyTag", "$call", t)
-            }
-        })
+                override fun onFailure(call: Call<List<Offer>>, t: Throwable) {
+                    Log.d("MyTag", "$call", t)
+                }
+            })
+        }
 
+        if (isAdded) {
+            companyApi = retrofit.create(CompanyApi::class.java)
+            companyApi.getCompanies(storedUserId).enqueue(object : Callback<List<Company>> {
+                override fun onResponse(
+                    call: Call<List<Company>>,
+                    response: Response<List<Company>>
+                ) {
+                    if (response.isSuccessful) {
+                        companies = response.body() ?: emptyList() // Store the companies
+                        companyNames.clear()
+                        companies.forEach { company -> companyNames.add(company.name.toSentenceCase()) }
+                        adapter.notifyDataSetChanged()
 
-        companyApi = retrofit.create(CompanyApi::class.java)
-        companyApi.getCompanies(storedUserId).enqueue(object : Callback<List<Company>> {
-            override fun onResponse(call: Call<List<Company>>, response: Response<List<Company>>) {
-                if (response.isSuccessful) {
-                    companies = response.body() ?: emptyList() // Store the companies
-                    companyNames.clear()
-                    companies.forEach { company -> companyNames.add(company.name.toSentenceCase()) }
-                    adapter.notifyDataSetChanged()
-
-                    val companyToSelect = companies.find { it.id == companyId }
-                    if (companyToSelect != null) {
-                        binding.etCompanySelect.setText(companyToSelect.name.toSentenceCase(), false)
+                        val companyToSelect = companies.find { it.id == companyId }
+                        if (companyToSelect != null) {
+                            binding.etCompanySelect.setText(
+                                companyToSelect.name.toSentenceCase(),
+                                false
+                            )
+                        }
+                    } else {
+                        // Handle API error
                     }
-                } else {
-                    // Handle API error
                 }
-            }
-            override fun onFailure(call: Call<List<Company>>, t: Throwable) {
-                Log.e("MyTag", "$call" , t)
-            }
-        })
 
+                override fun onFailure(call: Call<List<Company>>, t: Throwable) {
+                    Log.e("MyTag", "$call", t)
+                }
+            })
+        }
         binding.etCompanySelect.onItemClickListener  = AdapterView.OnItemClickListener { parent, _, position, _ ->
             Log.d("MyTag", "Before getStoredCompanyId $companyId")
             val selectedCompanyName = parent.getItemAtPosition(position) as String
             val selectedCompany = companies.find { it.name == selectedCompanyName.lowercase() }
             if (selectedCompany != null) {
                 authUserManager.storeCompanyId(selectedCompany.id)
+                companyId = authUserManager.getStoredCompanyId()
+                recyclerViewAdapter = OfferAdapter(offerApi, parentFragmentManager, companyId, findNavController())
                 offerApi.getOffer(selectedCompany.id).enqueue(object : Callback<List<Offer>> {
                     override fun onResponse(
                         call: Call<List<Offer>>,
@@ -137,12 +200,17 @@ class OfferFragment : Fragment() {
         }
 
         binding.floatingActionButton.setOnClickListener {
-            val directions = OfferFragmentDirections.actionOfferFragmentToAddServiceFragment(true)
-            findNavController().navigate(directions)
+            if(isAdded) {
+                val directions =
+                    OfferFragmentDirections.actionOfferFragmentToAddServiceFragment(true)
+                findNavController().navigate(directions)
+            }
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(this) {
-            findNavController().navigate(R.id.action_side_nav_pop_up_to_dashboard)
+            if(isAdded) {
+                findNavController().navigate(R.id.action_side_nav_pop_up_to_dashboard)
+            }
         }
 
         binding.nestedScrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->

@@ -23,6 +23,7 @@ import com.soriano.christianjose.block6.p1.tsikottracker.data.Company
 import com.soriano.christianjose.block6.p1.tsikottracker.data.GetRecord
 import com.soriano.christianjose.block6.p1.tsikottracker.data.Offer
 import com.soriano.christianjose.block6.p1.tsikottracker.databinding.FragmentRecordBinding
+import com.soriano.christianjose.block6.p1.tsikottracker.viewmodel.OfferIds
 import com.soriano.christianjose.block6.p1.tsikottracker.viewmodel.SharedViewModel
 import retrofit2.Call
 import retrofit2.Callback
@@ -39,6 +40,7 @@ class RecordFragment : Fragment() {
     private lateinit var recordApi: RecordApi
     private val binding get() = _binding!!
     private val sharedViewModel: SharedViewModel by activityViewModels()
+    private val offerIdsViewModel: OfferIds by activityViewModels()
     private lateinit var companies: List<Company>
     private lateinit var companyNames: MutableList<String>
     private lateinit var adapter: ArrayAdapter<String>
@@ -63,10 +65,12 @@ class RecordFragment : Fragment() {
         adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, companyNames)
         binding.etCompanySelect.setAdapter(adapter)
 
-        val recyclerViewAdapter = RecordAdapter()
-        binding.recyclerView.adapter = recyclerViewAdapter
 
         recordApi = retrofit.create(RecordApi::class.java)
+
+        val recyclerViewAdapter = RecordAdapter(recordApi, parentFragmentManager, companyId, findNavController(), offerIdsViewModel, requireContext())
+        binding.recyclerView.adapter = recyclerViewAdapter
+
         recordApi.getRecords(companyId).enqueue(object : Callback<List<GetRecord>>{
             override fun onResponse(
                 call: Call<List<GetRecord>>,

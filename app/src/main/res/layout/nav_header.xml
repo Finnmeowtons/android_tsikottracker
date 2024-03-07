@@ -13,6 +13,6 @@
         android:layout_height="120dp"
         android:scaleType="fitXY"
         android:cropToPadding="true"
-        android:src="@drawable/tsikot_tracker"/>
+        android:src="@drawable/tsii"/>
 
 </LinearLayout>

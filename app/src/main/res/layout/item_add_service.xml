@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingTop="8dp"
-    android:paddingBottom="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:gravity="center_horizontal"
-    android:layout_height="wrap_content">
+    android:orientation="vertical"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
 
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/offerLayout"
-        app:endIconMode="clear_text"
-        android:layout_width="310dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:errorIconDrawable="@null"
+        android:hint="Offer*"
+        app:endIconMode="clear_text"
         app:errorEnabled="true"
-        android:hint="Offer">
+        app:helperText="*required"
+        app:errorIconDrawable="@null">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etServiceInput"
             android:layout_width="match_parent"
-            android:maxLength="255"
-            android:singleLine="true"
+            android:layout_height="match_parent"
             android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 "
-            android:layout_height="match_parent" />
+            android:maxLength="255"
+            android:singleLine="true" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -36,45 +37,46 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/typeLayout"
-            app:errorIconDrawable="@null"
-            app:errorEnabled="true"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="150dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:layout_marginEnd="6dp"
-            android:hint="Type">
+            android:hint="Type*"
+            app:errorEnabled="true"
+            app:errorIconDrawable="@null">
 
             <AutoCompleteTextView
                 android:id="@+id/etServiceType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLines="1"
                 android:inputType="none"
-                app:simpleItems="@array/service_type"
-                />
+                android:maxLines="1"
+                app:simpleItems="@array/service_type" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/priceLayout"
-            android:layout_width="150dp"
-            app:errorIconDrawable="@null"
-            app:errorEnabled="true"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1.2"
             android:layout_marginStart="6dp"
-            app:suffixText="₱"
+            android:hint="Price*"
             app:counterEnabled="true"
             app:counterMaxLength="9"
-            android:hint="Price">
+            app:errorEnabled="true"
+            app:errorIconDrawable="@null"
+            app:suffixText="₱">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etServicePriceInput"
                 android:layout_width="match_parent"
-                android:maxLength="9"
-                android:inputType="number"
-                android:singleLine="true"
+                android:layout_height="match_parent"
                 android:digits="0123456789"
-                android:layout_height="match_parent" />
+                android:inputType="number"
+                android:maxLength="9"
+                android:singleLine="true" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

@@ -9,17 +9,16 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.activity.addCallback
-import androidx.core.view.GravityCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.soriano.christianjose.block6.p1.tsikottracker.adapter.CustomerAdapter
-import com.soriano.christianjose.block6.p1.tsikottracker.adapter.OfferAdapter
 import com.soriano.christianjose.block6.p1.tsikottracker.api.CompanyApi
 import com.soriano.christianjose.block6.p1.tsikottracker.api.CustomerApi
 import com.soriano.christianjose.block6.p1.tsikottracker.auth.AuthUserManager
 import com.soriano.christianjose.block6.p1.tsikottracker.data.Company
 import com.soriano.christianjose.block6.p1.tsikottracker.data.Customer
 import com.soriano.christianjose.block6.p1.tsikottracker.databinding.FragmentCustomerBinding
+import com.soriano.christianjose.block6.p1.tsikottracker.viewmodel.CarPlateNumbers
 import com.soriano.christianjose.block6.p1.tsikottracker.viewmodel.SharedViewModel
 import retrofit2.Call
 import retrofit2.Callback
@@ -35,6 +34,7 @@ class CustomerFragment : Fragment() {
     private lateinit var customerApi: CustomerApi
     private val binding get() = _binding!!
     private val sharedViewModel: SharedViewModel by activityViewModels()
+    private val carPlateNUmberViewModel : CarPlateNumbers by activityViewModels()
     private lateinit var companies: List<Company>
     private lateinit var companyNames: MutableList<String>
     private lateinit var adapter: ArrayAdapter<String>
@@ -60,10 +60,9 @@ class CustomerFragment : Fragment() {
         adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, companyNames)
         binding.etCompanySelect.setAdapter(adapter)
 
-        val recyclerViewAdapter = CustomerAdapter()
-        binding.recyclerView.adapter = recyclerViewAdapter
-
         customerApi = retrofit.create(CustomerApi::class.java)
+        val recyclerViewAdapter = CustomerAdapter(customerApi, parentFragmentManager, companyId, findNavController())
+        binding.recyclerView.adapter = recyclerViewAdapter
         customerApi.getCustomer(companyId).enqueue(object : Callback<List<Customer>>{
             override fun onResponse(
                 call: Call<List<Customer>>,
@@ -75,8 +74,6 @@ class CustomerFragment : Fragment() {
                     if (customers != null) {
                         recyclerViewAdapter.customers = customers
                     }
-                } else {
-                    // Handle API error
                 }
             }
 
@@ -100,8 +97,6 @@ class CustomerFragment : Fragment() {
                         binding.etCompanySelect.setText(companyToSelect.name.toSentenceCase(), false)
                     }
 
-                } else {
-                    // Handle API error
                 }
             }
             override fun onFailure(call: Call<List<Company>>, t: Throwable) {
@@ -131,8 +126,6 @@ class CustomerFragment : Fragment() {
                             if (customers != null) {
                                 recyclerViewAdapter.customers = customers
                             }
-                        } else {
-                            // Handle API error
                         }
                     }
 

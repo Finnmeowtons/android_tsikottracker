@@ -122,6 +122,9 @@
         <action
             android:id="@+id/action_recordFragment2_to_addRecordFragment"
             app:destination="@id/addRecordFragment" />
+        <action
+            android:id="@+id/action_recordFragment2_to_updateRecordFragment"
+            app:destination="@id/updateRecordFragment" />
     </fragment>
     <fragment
         android:id="@+id/analyticFragment"
@@ -132,7 +135,11 @@
         android:id="@+id/customerFragment"
         android:name="com.soriano.christianjose.block6.p1.tsikottracker.CustomerFragment"
         android:label="fragment_customer"
-        tools:layout="@layout/fragment_customer" />
+        tools:layout="@layout/fragment_customer" >
+        <action
+            android:id="@+id/action_customerFragment_to_updateCustomerFragment"
+            app:destination="@id/updateCustomerFragment" />
+    </fragment>
     <fragment
         android:id="@+id/employeeFragment"
         android:name="com.soriano.christianjose.block6.p1.tsikottracker.EmployeeFragment"
@@ -141,6 +148,9 @@
         <action
             android:id="@+id/action_employeeFragment_to_addEmployeeFragment2"
             app:destination="@id/addEmployeeFragment" />
+        <action
+            android:id="@+id/action_employeeFragment_to_updateEmployeeFragment"
+            app:destination="@id/updateEmployeeFragment" />
     </fragment>
     <fragment
         android:id="@+id/offerFragment"
@@ -150,6 +160,9 @@
         <action
             android:id="@+id/action_offerFragment_to_addServiceFragment"
             app:destination="@id/addServiceFragment" />
+        <action
+            android:id="@+id/action_offerFragment_to_updateOfferFragment"
+            app:destination="@id/updateOfferFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
@@ -187,6 +200,82 @@
         android:name="com.soriano.christianjose.block6.p1.tsikottracker.AddRecordFragment"
         android:label="fragment_add_record"
         tools:layout="@layout/fragment_add_record" />
+    <fragment
+        android:id="@+id/updateOfferFragment"
+        android:name="com.soriano.christianjose.block6.p1.tsikottracker.UpdateOfferFragment"
+        android:label="fragment_update_offer"
+        tools:layout="@layout/fragment_update_offer" >
+
+        <argument
+            android:name="updateNameValue"
+            app:argType="string" />
+        <argument
+            android:name="updatePriceValue"
+            app:argType="string" />
+        <argument
+            android:name="updateTypeValue"
+            app:argType="string" />
+        <argument
+            android:name="updateIdValue"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateEmployeeFragment"
+        android:name="com.soriano.christianjose.block6.p1.tsikottracker.UpdateEmployeeFragment"
+        android:label="fragment_update_employee"
+        tools:layout="@layout/fragment_update_employee" >
+        <argument
+            android:name="updateIdValue"
+            app:argType="integer" />
+        <argument
+            android:name="updateNameValue"
+            app:argType="string" />
+        <argument
+            android:name="updatePositionValue"
+            app:argType="string" />
+        <argument
+            android:name="updateContactValue"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateCustomerFragment"
+        android:name="com.soriano.christianjose.block6.p1.tsikottracker.UpdateCustomerFragment"
+        android:label="fragment_update_customer"
+        tools:layout="@layout/fragment_update_customer" >
+        <argument
+            android:name="updateIdValue"
+            app:argType="integer" />
+        <argument
+            android:name="updateNameValue"
+            app:argType="string" />
+        <argument
+            android:name="updatePlateNumberValue"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateRecordFragment"
+        android:name="com.soriano.christianjose.block6.p1.tsikottracker.UpdateRecordFragment"
+        android:label="fragment_update_record"
+        tools:layout="@layout/fragment_update_record" >
+        <argument
+            android:name="updateCustomerName"
+            app:argType="string" />
+        <argument
+            android:name="updatePlateNumber"
+            app:argType="string" />
+        <argument
+            android:name="updateEmployeeName"
+            app:argType="string" />
+        <argument
+            android:name="updateEmployePosition"
+            app:argType="string" />
+        <argument
+            android:name="updateNotes"
+            app:argType="string" />
+        <argument
+            android:name="updateId"
+            app:argType="integer" />
+    </fragment>
 
 
 </navigation>

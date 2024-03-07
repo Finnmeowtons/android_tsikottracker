@@ -56,10 +56,13 @@ class EmployeeFragment : Fragment() {
         adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, companyNames)
         binding.etCompanySelect.setAdapter(adapter)
 
-        val recyclerViewAdapter = EmployeeAdapter()
-        binding.rvEmployee.adapter = recyclerViewAdapter
+
 
         employeeApi = retrofit.create(EmployeeApi::class.java)
+
+        val recyclerViewAdapter = EmployeeAdapter(employeeApi, parentFragmentManager, companyId, findNavController() )
+        binding.rvEmployee.adapter = recyclerViewAdapter
+
         employeeApi.getEmployee(companyId).enqueue(object : Callback<List<Employee>> {
             override fun onResponse(
                 call: Call<List<Employee>>,

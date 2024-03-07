@@ -36,6 +36,7 @@ class ShowCompaniesFragment : Fragment() {
         val view = binding.root
         val authUserManager = AuthUserManager(requireContext())
         val storedUserId = authUserManager.getStoredUserId()
+        val companyId = authUserManager.getStoredCompanyId()
 
         retrofit = Retrofit.Builder()
             .baseUrl("http://146.190.111.209/")
@@ -44,7 +45,7 @@ class ShowCompaniesFragment : Fragment() {
         companyApi = retrofit.create(CompanyApi::class.java)
 
 
-        val adapter = CompanyAdapter()
+        val adapter = CompanyAdapter(companyApi, parentFragmentManager, companyId, findNavController(), requireContext(), storedUserId, activity)
         binding.rvCompanies.adapter = adapter
         sharedViewModel.updateAppBarTitle("Company")
         Log.d("MyTag", storedUserId.toString())

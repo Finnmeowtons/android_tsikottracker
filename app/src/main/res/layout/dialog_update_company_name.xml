@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:paddingTop="24dp"
+    android:paddingBottom="24dp"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp">
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="12dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/companyNameLayout"
+        android:hint="Company Name"
+        app:errorIconDrawable="@null"
+        app:errorEnabled="true"
+        app:endIconMode="clear_text">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:maxLength="255"
+            android:id="@+id/etCompanyName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:layout_marginTop="8dp">
+
+        <Button
+            android:id="@+id/btnRenameCancel"
+            android:layout_width="match_parent"
+            android:layout_marginEnd="8dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Cancel" />
+
+        <Button
+            android:id="@+id/btnRenameConfirm"
+            android:layout_width="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Rename" />
+    </LinearLayout>
+
+
+</LinearLayout>

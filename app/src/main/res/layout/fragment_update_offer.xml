@@ -1,0 +1,95 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="center_horizontal"
+    android:layout_gravity="center"
+    android:layout_marginEnd="48dp"
+    android:layout_marginStart="48dp"
+    android:layout_marginBottom="128dp"
+    android:orientation="vertical"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    tools:context=".UpdateOfferFragment">
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/offerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Offer"
+        app:endIconMode="clear_text"
+        app:errorEnabled="true"
+        app:errorIconDrawable="@null">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etServiceInput"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 "
+            android:maxLength="255"
+            android:singleLine="true" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/typeLayout"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="6dp"
+            android:hint="Type"
+            app:errorEnabled="true"
+            app:errorIconDrawable="@null">
+
+            <AutoCompleteTextView
+                android:id="@+id/etServiceType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                android:maxLines="1"
+                app:simpleItems="@array/service_type" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/priceLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.2"
+            android:layout_marginStart="6dp"
+            android:hint="Price"
+            app:counterEnabled="true"
+            app:counterMaxLength="9"
+            app:errorEnabled="true"
+            app:errorIconDrawable="@null"
+            app:suffixText="₱">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etServicePriceInput"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:digits="0123456789"
+                android:inputType="number"
+                android:maxLength="9"
+                android:singleLine="true" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btnConfirmEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Confirm Edit"/>
+</LinearLayout>

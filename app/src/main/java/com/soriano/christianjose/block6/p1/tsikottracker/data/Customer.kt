@@ -4,5 +4,5 @@ data class Customer(
     val id : Int,
     val car_plate_number : String,
     val name : String?,
-    val company_id : Int
+    var company_id : Int?
 )

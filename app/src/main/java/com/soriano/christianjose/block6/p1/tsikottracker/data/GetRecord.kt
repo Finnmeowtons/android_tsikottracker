@@ -9,14 +9,12 @@ data class GetRecord(
     val id: Int,
     val customer_name: String?,
     val customer_car_plate_number: String,
-    val offer_id: Int?,
-    val offer: String,
-    val offer_price: Int?,
-    val type: String,
+    val offers: List<GetRecordOffer>,
     val time: Date?,
     val company_id: Int,
     val notes: String?,
     val employee_id: Int?,
-    val employee_name: String?
+    val employee_name: String?,
+    val employee_position: String?
 )
 
