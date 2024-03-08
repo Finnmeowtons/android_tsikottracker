@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.navigation.fragment.findNavController
 import com.soriano.christianjose.block6.p1.tsikottracker.auth.AuthUserManager
 import com.soriano.christianjose.block6.p1.tsikottracker.auth.api.RegistrationApi
@@ -144,7 +145,11 @@ class RegistrationFragment : Fragment() {
         }
 
 
-
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            if (isAdded) {
+                findNavController().popBackStack()
+            }
+        }
 
 
 

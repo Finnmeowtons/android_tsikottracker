@@ -1,16 +1,18 @@
 package com.soriano.christianjose.block6.p1.tsikottracker.adapter
 
+import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.soriano.christianjose.block6.p1.tsikottracker.data.Employee
 import com.soriano.christianjose.block6.p1.tsikottracker.databinding.FragmentAddEmployeeBinding
 import com.soriano.christianjose.block6.p1.tsikottracker.databinding.ItemAddEmployeeBinding
 
-class AddEmployeeAdapter(private val companyId : Int) : RecyclerView.Adapter<AddEmployeeViewHolder>() {
+class AddEmployeeAdapter(private val companyId : Int, private val context: Context) : RecyclerView.Adapter<AddEmployeeViewHolder>() {
 
     private val employeeList = mutableListOf(Employee(id = 0, name ="", contact_details = "", position = "", company_id = companyId))
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddEmployeeViewHolder {
@@ -28,6 +30,21 @@ class AddEmployeeAdapter(private val companyId : Int) : RecyclerView.Adapter<Add
     override fun onBindViewHolder(holder: AddEmployeeViewHolder, position: Int) {
         val currentItem = employeeList[position]
         Log.e("MyTag", currentItem.toString())
+
+        if (position != 0) {
+            holder.binding.root.setOnLongClickListener {
+                MaterialAlertDialogBuilder(context)
+                    .setTitle("Remove Employee Field?")
+                    .setMessage("Are you sure you want to remove this employee?")
+                    .setPositiveButton("Delete") { _, _ ->
+                        employeeList.removeAt(position)
+                        notifyItemRemoved(position)
+                    }
+                    .setNegativeButton("Cancel", null)
+                    .show()
+                true
+            }
+        }
 
         holder.binding.etName.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {

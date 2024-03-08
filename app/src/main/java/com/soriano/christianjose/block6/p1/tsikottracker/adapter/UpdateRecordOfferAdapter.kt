@@ -31,7 +31,7 @@ class UpdateRecordOfferAdapter (private val companyId: Int, private val context:
         val currentItem = offerList[position]
         holder.binding.apply {
             etServiceInput.setText(currentItem.name)
-            etServiceType.setText(currentItem.type)
+            etServiceType.setText(currentItem.type, false)
             etServicePriceInput.setText(currentItem.price.toString())
         }
         Log.e("MyTag", currentItem.toString())

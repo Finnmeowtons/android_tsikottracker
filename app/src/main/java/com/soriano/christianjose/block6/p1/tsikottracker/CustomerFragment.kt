@@ -141,7 +141,7 @@ class CustomerFragment : Fragment() {
 
 
         requireActivity().onBackPressedDispatcher.addCallback(this) {
-            findNavController().navigate(R.id.action_side_nav_pop_up_to_dashboard)
+            findNavController().navigate(R.id.action_side_nav_pop_up_to_record)
         }
 
         return view

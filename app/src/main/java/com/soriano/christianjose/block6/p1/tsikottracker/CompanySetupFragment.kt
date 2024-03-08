@@ -123,14 +123,6 @@ class CompanySetupFragment : Fragment() {
 
         }
 
-        binding.btnJoin.setOnClickListener {
-
-            activity?.findViewById<AppBarLayout>(R.id.appBarLayout)?.visibility = View.VISIBLE
-            activity?.findViewById<DrawerLayout>(R.id.drawerLayout)?.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-            view.findNavController().navigate(R.id.action_side_nav_pop_up_to_dashboard)
-
-
-        }
 
         requireActivity().onBackPressedDispatcher.addCallback(this) {
             if (isAdded) {

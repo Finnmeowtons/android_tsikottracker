@@ -38,9 +38,9 @@ class AddServiceAdapter(private val companyId: Int, private val context: Context
         Log.e("MyTag", currentItem.toString())
 
         if (position != 0) {
-            holder.binding.etServiceInput.setOnLongClickListener {
+            holder.binding.root.setOnLongClickListener {
                 MaterialAlertDialogBuilder(context)
-                    .setTitle("Delete Offer?")
+                    .setTitle("Remove Offer Field?")
                     .setMessage("Are you sure you want to remove this offer?")
                     .setPositiveButton("Delete") { _, _ ->
                         offerList.removeAt(position)

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.navigation.fragment.findNavController
 import com.soriano.christianjose.block6.p1.tsikottracker.auth.api.ForgotPasswordApi
 import com.soriano.christianjose.block6.p1.tsikottracker.auth.data.ForgotPasswordRequest
@@ -76,7 +77,11 @@ class ForgotPasswordFragment : Fragment() {
             })
         }
 
-
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            if (isAdded) {
+                findNavController().popBackStack()
+            }
+        }
 
         return view
 

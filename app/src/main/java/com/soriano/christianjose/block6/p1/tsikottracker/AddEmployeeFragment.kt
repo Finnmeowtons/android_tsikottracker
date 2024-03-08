@@ -58,7 +58,7 @@ class AddEmployeeFragment : Fragment() {
             .build()
         employeeApi = retrofit.create(EmployeeApi::class.java)
 
-        val adapter = AddEmployeeAdapter(companyId)
+        val adapter = AddEmployeeAdapter(companyId, requireContext())
         binding.rvAddServices.adapter = adapter
 
         binding.btnAddEmployee.setOnClickListener {

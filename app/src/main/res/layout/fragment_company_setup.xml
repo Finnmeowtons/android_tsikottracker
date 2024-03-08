@@ -11,6 +11,7 @@
         android:gravity="center"
         android:orientation="vertical"
         android:layout_height="wrap_content"
+        android:paddingBottom="200dp"
         android:minHeight="700dp">
 
     <com.google.android.material.textview.MaterialTextView
@@ -20,72 +21,6 @@
         android:textSize="36sp"
         android:textColor="@color/black"
         android:text="Company Setup"/>
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvJoin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        android:textColor="@color/black"
-        android:layout_marginTop="48dp"
-        android:text="Join Existing Company"/>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="280dp"
-        android:layout_marginTop="12dp"
-        android:layout_height="wrap_content"
-        app:errorIconDrawable="@null"
-        app:errorEnabled="true"
-        android:hint="Code"
-        app:endIconMode="clear_text">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&amp;*-_+=?/|:;',."
-            android:layout_height="match_parent"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnJoin"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Join"/>
-
-
-
-    <LinearLayout
-        android:layout_marginTop="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_weight="1"
-            android:layout_marginEnd="15dp"
-            android:layout_marginStart="15dp"
-            android:background="#bebebe" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#bebebe"
-            android:text="OR"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_weight="1"
-            android:layout_marginEnd="15dp"
-            android:layout_marginStart="15dp"
-            android:background="#bebebe" />
-
-    </LinearLayout>
 
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="wrap_content"

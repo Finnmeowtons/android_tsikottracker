@@ -143,7 +143,7 @@ class AddServiceFragment : Fragment() {
                             View.VISIBLE
                         activity?.findViewById<DrawerLayout>(R.id.drawerLayout)
                             ?.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-                        findNavController().navigate(R.id.action_side_nav_pop_up_to_dashboard)
+                        findNavController().navigate(R.id.action_side_nav_pop_up_to_record)
 
                     }
                     .setNegativeButton("Cancel", null)

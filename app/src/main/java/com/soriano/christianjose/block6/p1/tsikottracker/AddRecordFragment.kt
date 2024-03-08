@@ -52,6 +52,7 @@ class AddRecordFragment : Fragment() {
         sharedViewModel.updateAppBarTitle("Add Data")
         activity?.findViewById<DrawerLayout>(R.id.drawerLayout)?.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
+
         val toolbar = activity?.findViewById<MaterialToolbar>(R.id.topAppBar)
         toolbar?.inflateMenu(R.menu.top_menu)
         toolbar?.setNavigationIcon(R.drawable.arrow_back)

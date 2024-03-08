@@ -57,7 +57,7 @@ class LoginFragment : Fragment() {
 
                         activity?.findViewById<AppBarLayout>(R.id.appBarLayout)?.visibility = View.VISIBLE
                         activity?.findViewById<DrawerLayout>(R.id.drawerLayout)?.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-                        findNavController().navigate(R.id.action_side_nav_pop_up_to_dashboard)
+                        findNavController().navigate(R.id.action_side_nav_pop_up_to_record)
                     } else {
                         Log.e("MyTag", "Logout Failed: $call || ${response.body()}")
                     }
@@ -136,7 +136,7 @@ class LoginFragment : Fragment() {
                                     View.VISIBLE
                                 activity?.findViewById<DrawerLayout>(R.id.drawerLayout)
                                     ?.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-                                findNavController().navigate(R.id.action_side_nav_pop_up_to_dashboard)
+                                findNavController().navigate(R.id.action_side_nav_pop_up_to_record)
                             } else {
                                 binding.emailLayout.error = "Invalid Credentials"
                                 binding.passwordLayout.error = "Invalid Credentials"
@@ -189,7 +189,9 @@ class LoginFragment : Fragment() {
                 View.VISIBLE
             activity?.findViewById<DrawerLayout>(R.id.drawerLayout)
                 ?.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-            findNavController().navigate(R.id.action_side_nav_pop_up_to_dashboard)
+            if (isAdded) {
+                findNavController().navigate(R.id.action_side_nav_pop_up_to_record)
+            }
         }
     }
 }

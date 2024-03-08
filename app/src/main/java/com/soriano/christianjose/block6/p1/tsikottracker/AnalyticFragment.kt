@@ -23,8 +23,10 @@ class AnalyticFragment : Fragment() {
         _binding = FragmentAnalyticBinding.inflate(inflater, container, false)
         val view = binding.root
         sharedViewModel.updateAppBarTitle("Analytics")
+
+
         requireActivity().onBackPressedDispatcher.addCallback(this) {
-            findNavController().navigate(R.id.action_side_nav_pop_up_to_dashboard)
+            findNavController().navigate(R.id.action_side_nav_pop_up_to_record)
         }
 
         return view

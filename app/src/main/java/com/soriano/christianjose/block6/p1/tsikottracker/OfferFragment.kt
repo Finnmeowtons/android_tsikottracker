@@ -209,7 +209,7 @@ class OfferFragment : Fragment() {
 
         requireActivity().onBackPressedDispatcher.addCallback(this) {
             if(isAdded) {
-                findNavController().navigate(R.id.action_side_nav_pop_up_to_dashboard)
+                findNavController().navigate(R.id.action_side_nav_pop_up_to_record)
             }
         }
 
