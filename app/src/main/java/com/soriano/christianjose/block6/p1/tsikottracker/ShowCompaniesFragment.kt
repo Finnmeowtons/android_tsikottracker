@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.appbar.MaterialToolbar
 import com.soriano.christianjose.block6.p1.tsikottracker.adapter.CompanyAdapter
 import com.soriano.christianjose.block6.p1.tsikottracker.api.CompanyApi
 import com.soriano.christianjose.block6.p1.tsikottracker.auth.AuthUserManager
@@ -34,6 +35,7 @@ class ShowCompaniesFragment : Fragment() {
     ): View {
         _binding = FragmentShowCompaniesBinding.inflate(inflater, container, false)
         val view = binding.root
+        activity?.findViewById<MaterialToolbar>(R.id.topAppBar)?.menu?.clear()
         val authUserManager = AuthUserManager(requireContext())
         val storedUserId = authUserManager.getStoredUserId()
         val companyId = authUserManager.getStoredCompanyId()

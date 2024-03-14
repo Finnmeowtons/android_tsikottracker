@@ -6,6 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".OfferFragment">
 
+    <LinearLayout
+        android:id="@+id/llNoResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_marginTop="250dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            style="@style/TextAppearance.Material3.DisplaySmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Empty List" />
+
+        <View
+            android:layout_width="230dp"
+            android:layout_height="255dp"
+            android:background="@drawable/no_result" />
+    </LinearLayout>
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
         android:layout_width="0dp"

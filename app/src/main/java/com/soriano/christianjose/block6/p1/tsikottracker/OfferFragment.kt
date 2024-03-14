@@ -10,10 +10,12 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.activity.addCallback
+import androidx.appcompat.widget.SearchView
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import com.soriano.christianjose.block6.p1.tsikottracker.adapter.OfferAdapter
 import com.soriano.christianjose.block6.p1.tsikottracker.api.CompanyApi
@@ -40,6 +42,7 @@ class OfferFragment : Fragment() {
     private lateinit var companies: List<Company>
     private lateinit var companyNames: MutableList<String>
     private lateinit var adapter: ArrayAdapter<String>
+    private lateinit var getOffers : List<Offer>
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,6 +55,10 @@ class OfferFragment : Fragment() {
         val storedUserId = authUserManager.getStoredUserId()
         companyNames = mutableListOf<String>()
         companies = emptyList()
+        val toolbar = activity?.findViewById<MaterialToolbar>(R.id.topAppBar)
+        toolbar?.menu?.clear()
+        toolbar?.inflateMenu(R.menu.search_menu)
+
 
         adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, companyNames)
         binding.etCompanySelect.setAdapter(adapter)
@@ -62,9 +69,8 @@ class OfferFragment : Fragment() {
             .build()
 
         offerApi = retrofit.create(OfferApi::class.java)
-        var recyclerViewAdapter = OfferAdapter(offerApi, parentFragmentManager, companyId, findNavController())
+        val recyclerViewAdapter = OfferAdapter(offerApi, parentFragmentManager, companyId, findNavController())
         binding.recyclerView.adapter = recyclerViewAdapter
-
 
 
         if (isAdded) {
@@ -75,6 +81,12 @@ class OfferFragment : Fragment() {
                         Log.d("MyTag", "$offers || ${response.body()}")
                         if (offers != null) {
                             recyclerViewAdapter.offers = offers
+                            getOffers = offers
+                            if (offers.isEmpty()){
+                                binding.llNoResult.visibility = View.VISIBLE
+                            } else {
+                                binding.llNoResult.visibility = View.GONE
+                            }
                             binding.apply {
                                 var click = 0
                                 tvOffer.setOnClickListener {
@@ -135,6 +147,43 @@ class OfferFragment : Fragment() {
                     Log.d("MyTag", "$call", t)
                 }
             })
+
+            toolbar?.setOnMenuItemClickListener {menuItem ->
+                when (menuItem.itemId) {
+                    R.id.search ->{
+                        val searchView = menuItem.actionView as SearchView
+                        searchView.isIconified = false // Expand the search view
+                        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                            override fun onQueryTextSubmit(query: String?): Boolean = true
+
+                            override fun onQueryTextChange(query: String?): Boolean {
+                                if (query != null) {
+                                    val searchQuery = query.lowercase()
+                                    val filteredOffers = getOffers.filter { offer ->
+                                        offer.name.lowercase().contains(searchQuery) || offer.price.toString().contains(searchQuery)
+                                    }
+                                    recyclerViewAdapter.offers = filteredOffers
+                                    if (filteredOffers.isEmpty()){
+                                        binding.llNoResult.visibility = View.VISIBLE
+                                    } else {
+                                        binding.llNoResult.visibility = View.GONE
+                                    }
+                                } else {
+                                    recyclerViewAdapter.offers = getOffers
+                                    if (getOffers.isEmpty()){
+                                        binding.llNoResult.visibility = View.VISIBLE
+                                    } else {
+                                        binding.llNoResult.visibility = View.GONE
+                                    }
+                                }
+                                return true
+                            }
+                        })
+                        true
+                    }
+                    else -> false
+                }
+            }
         }
 
         if (isAdded) {
@@ -147,13 +196,13 @@ class OfferFragment : Fragment() {
                     if (response.isSuccessful) {
                         companies = response.body() ?: emptyList() // Store the companies
                         companyNames.clear()
-                        companies.forEach { company -> companyNames.add(company.name.toSentenceCase()) }
+                        companies.forEach { company -> companyNames.add(company.name) }
                         adapter.notifyDataSetChanged()
 
                         val companyToSelect = companies.find { it.id == companyId }
                         if (companyToSelect != null) {
                             binding.etCompanySelect.setText(
-                                companyToSelect.name.toSentenceCase(),
+                                companyToSelect.name,
                                 false
                             )
                         }
@@ -170,21 +219,34 @@ class OfferFragment : Fragment() {
         binding.etCompanySelect.onItemClickListener  = AdapterView.OnItemClickListener { parent, _, position, _ ->
             Log.d("MyTag", "Before getStoredCompanyId $companyId")
             val selectedCompanyName = parent.getItemAtPosition(position) as String
-            val selectedCompany = companies.find { it.name == selectedCompanyName.lowercase() }
+            val selectedCompany = companies.find { it.name == selectedCompanyName }
             if (selectedCompany != null) {
                 authUserManager.storeCompanyId(selectedCompany.id)
                 companyId = authUserManager.getStoredCompanyId()
-                recyclerViewAdapter = OfferAdapter(offerApi, parentFragmentManager, companyId, findNavController())
+                Log.d("MyTag", "companyId $companyId")
+                Log.d("MyTag", "selectedCompany id ${selectedCompany.id}")
                 offerApi.getOffer(selectedCompany.id).enqueue(object : Callback<List<Offer>> {
                     override fun onResponse(
                         call: Call<List<Offer>>,
                         response: Response<List<Offer>>
                     ) {
                         if (response.isSuccessful) {
+                            val searchView = toolbar?.menu?.findItem(R.id.search)?.actionView as SearchView
+                            searchView.setQuery("", false) // Clear the text
+                            searchView.isIconified = true
+                            toolbar.menu?.findItem(R.id.search)?.collapseActionView()
+
+                            Log.d("MyTag", "success")
                             val offers = response.body()
                             Log.d("MyTag", "$offers || ${response.body()}")
                             if (offers != null) {
+                                Log.d("MyTag", "successss")
                                 recyclerViewAdapter.offers = offers
+                                if (offers.isEmpty()){
+                                    binding.llNoResult.visibility = View.VISIBLE
+                                } else {
+                                    binding.llNoResult.visibility = View.GONE
+                                }
                             }
                         } else {
                             // Handle API error
@@ -224,11 +286,6 @@ class OfferFragment : Fragment() {
         })
 
         return view
-    }
-    fun String.toSentenceCase(): String {
-        return lowercase() // Start by lowercasing the entire string
-            .split("\\s+".toRegex()) // Split into words based on spaces
-            .joinToString(" ") { word -> word.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() } }
     }
     override fun onDestroyView() {
         super.onDestroyView()

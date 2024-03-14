@@ -32,6 +32,7 @@ class CompanyDashboardFragment : Fragment() {
             View.VISIBLE
         activity?.findViewById<DrawerLayout>(R.id.drawerLayout)
             ?.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+        activity?.findViewById<MaterialToolbar>(R.id.topAppBar)?.menu?.clear()
 
 
         return view

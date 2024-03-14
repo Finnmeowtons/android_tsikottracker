@@ -1,5 +1,6 @@
 package com.soriano.christianjose.block6.p1.tsikottracker.adapter
 
+import android.R
 import android.app.AlertDialog
 import android.content.Context
 import android.text.Editable
@@ -7,19 +8,24 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.soriano.christianjose.block6.p1.tsikottracker.api.OfferApi
 import com.soriano.christianjose.block6.p1.tsikottracker.auth.AuthUserManager
 import com.soriano.christianjose.block6.p1.tsikottracker.data.Offer
 import com.soriano.christianjose.block6.p1.tsikottracker.databinding.FragmentAddRecordBinding
 import com.soriano.christianjose.block6.p1.tsikottracker.databinding.FragmentAddServiceBinding
 import com.soriano.christianjose.block6.p1.tsikottracker.databinding.FragmentUpdateRecordBinding
 import com.soriano.christianjose.block6.p1.tsikottracker.databinding.ItemAddServiceBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class AddServiceAdapter(private val companyId: Int, private val context: Context) : RecyclerView.Adapter<AddServiceViewHolder>() {
 
     private val offerList = mutableListOf(Offer(id = 0, name ="", price =0, type ="", company_id = companyId))
-
+    var offersList = listOf<Offer>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddServiceViewHolder {
         return AddServiceViewHolder(ItemAddServiceBinding.inflate(
@@ -36,6 +42,20 @@ class AddServiceAdapter(private val companyId: Int, private val context: Context
     override fun onBindViewHolder(holder: AddServiceViewHolder, position: Int) {
         val currentItem = offerList[position]
         Log.e("MyTag", currentItem.toString())
+
+        val offerNames = offersList.map { it.name }
+        val customerNameAdapter = ArrayAdapter(context, R.layout.simple_dropdown_item_1line, offerNames)
+        holder.binding.etServiceInput.setAdapter(customerNameAdapter)
+        holder.binding.etServiceInput.threshold = 1
+        holder.binding.etServiceInput.setOnItemClickListener { adapterView, _, _, _ ->
+            val selectedName = adapterView.getItemAtPosition(position) as String
+            val matchingOffer = offersList.find { it.name == selectedName }
+
+            if (matchingOffer != null) {
+                holder.binding.etServiceType.setText(matchingOffer.type.replaceFirstChar { it.uppercase() }, false)
+                holder.binding.etServicePriceInput.setText(matchingOffer.price.toString())
+            }
+        }
 
         if (position != 0) {
             holder.binding.root.setOnLongClickListener {

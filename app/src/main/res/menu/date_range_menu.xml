@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:title="Date Range"
+        android:id="@+id/dateRange"
+        android:contentDescription="Date Range"
+        android:icon="@drawable/date_range_fill0_wght400_grad0_opsz24"
+        app:showAsAction="ifRoom" />
+</menu>

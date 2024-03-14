@@ -125,6 +125,9 @@
         <action
             android:id="@+id/action_recordFragment2_to_updateRecordFragment"
             app:destination="@id/updateRecordFragment" />
+        <action
+            android:id="@+id/action_recordFragment2_to_recordHistoryFragment"
+            app:destination="@id/recordHistoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/analyticFragment"
@@ -276,6 +279,11 @@
             android:name="updateId"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/recordHistoryFragment"
+        android:name="com.soriano.christianjose.block6.p1.tsikottracker.RecordHistoryFragment"
+        android:label="fragment_record_history"
+        tools:layout="@layout/fragment_record_history" />
 
 
 </navigation>

@@ -9,8 +9,10 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.activity.addCallback
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.appbar.MaterialToolbar
 import com.soriano.christianjose.block6.p1.tsikottracker.adapter.CustomerAdapter
 import com.soriano.christianjose.block6.p1.tsikottracker.api.CompanyApi
 import com.soriano.christianjose.block6.p1.tsikottracker.api.CustomerApi
@@ -38,7 +40,7 @@ class CustomerFragment : Fragment() {
     private lateinit var companies: List<Company>
     private lateinit var companyNames: MutableList<String>
     private lateinit var adapter: ArrayAdapter<String>
-
+    private lateinit var getCustomers : List<Customer>
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,6 +51,10 @@ class CustomerFragment : Fragment() {
             .baseUrl("http://146.190.111.209/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+
+        val toolbar = activity?.findViewById<MaterialToolbar>(R.id.topAppBar)
+        toolbar?.menu?.clear()
+        toolbar?.inflateMenu(R.menu.search_menu)
         sharedViewModel.updateAppBarTitle("Customers")
 
         val authUserManager = AuthUserManager(requireContext())
@@ -69,10 +75,20 @@ class CustomerFragment : Fragment() {
                 response: Response<List<Customer>>
             ) {
                 if (response.isSuccessful) {
+                    val searchView = toolbar?.menu?.findItem(R.id.search)?.actionView as SearchView
+                    searchView.setQuery("", false) // Clear the text
+                    searchView.isIconified = true
+                    toolbar.menu?.findItem(R.id.search)?.collapseActionView()
                     val customers = response.body()
                     Log.d("MyTag", "$customers || ${response.body()}")
                     if (customers != null) {
                         recyclerViewAdapter.customers = customers
+                        getCustomers = customers
+                        if (getCustomers.isEmpty()){
+                            binding.llNoResult.visibility = View.VISIBLE
+                        } else {
+                            binding.llNoResult.visibility = View.GONE
+                        }
                     }
                 }
             }
@@ -82,6 +98,43 @@ class CustomerFragment : Fragment() {
             }
         })
 
+        toolbar?.setOnMenuItemClickListener {menuItem ->
+            when (menuItem.itemId) {
+                R.id.search ->{
+                    val searchView = menuItem.actionView as SearchView
+                    searchView.isIconified = false // Expand the search view
+                    searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                        override fun onQueryTextSubmit(query: String?): Boolean = true
+
+                        override fun onQueryTextChange(query: String?): Boolean {
+                            if (query != null) {
+                                val searchQuery = query.lowercase()
+                                val filteredOffers = getCustomers.filter { customer ->
+                                    customer.name?.lowercase()?.contains(searchQuery) == true || customer.car_plate_number.lowercase().contains(searchQuery)
+                                }
+                                recyclerViewAdapter.customers = filteredOffers
+                                if (filteredOffers.isEmpty()){
+                                    binding.llNoResult.visibility = View.VISIBLE
+                                } else {
+                                    binding.llNoResult.visibility = View.GONE
+                                }
+                            } else {
+                                recyclerViewAdapter.customers = getCustomers
+                                if (getCustomers.isEmpty()){
+                                    binding.llNoResult.visibility = View.VISIBLE
+                                } else {
+                                    binding.llNoResult.visibility = View.GONE
+                                }
+                            }
+                            return true
+                        }
+                    })
+                    true
+                }
+                else -> false
+            }
+        }
+
 
         companyApi = retrofit.create(CompanyApi::class.java)
         companyApi.getCompanies(storedUserId).enqueue(object : Callback<List<Company>> {
@@ -89,12 +142,12 @@ class CustomerFragment : Fragment() {
                 if (response.isSuccessful) {
                     companies = response.body() ?: emptyList() // Store the companies
                     companyNames.clear()
-                    companies.forEach { company -> companyNames.add(company.name.toSentenceCase()) }
+                    companies.forEach { company -> companyNames.add(company.name) }
                     adapter.notifyDataSetChanged()
 
                     val companyToSelect = companies.find { it.id == companyId }
                     if (companyToSelect != null) {
-                        binding.etCompanySelect.setText(companyToSelect.name.toSentenceCase(), false)
+                        binding.etCompanySelect.setText(companyToSelect.name, false)
                     }
 
                 }
@@ -105,11 +158,8 @@ class CustomerFragment : Fragment() {
         })
 
         binding.etCompanySelect.onItemClickListener  = AdapterView.OnItemClickListener { parent, _, position, _ ->
-            Log.d("MyTag", "Before getStoredCompanyId $companyId")
             val selectedCompanyName = parent.getItemAtPosition(position) as String
-            Log.d("MyTag", "Before selectedCompanyName $selectedCompanyName")
-            val selectedCompany = companies.find { it.name == selectedCompanyName.lowercase() }
-            Log.d("MyTag", "Before selectedCompany $selectedCompany")
+            val selectedCompany = companies.find { it.name == selectedCompanyName }
 
 
             if (selectedCompany != null) {
@@ -121,10 +171,20 @@ class CustomerFragment : Fragment() {
                         response: Response<List<Customer>>
                     ) {
                         if (response.isSuccessful) {
+                            val searchView = toolbar?.menu?.findItem(R.id.search)?.actionView as SearchView
+                            searchView.setQuery("", false) // Clear the text
+                            searchView.isIconified = true
+                            toolbar.menu?.findItem(R.id.search)?.collapseActionView()
                             val customers = response.body()
                             Log.d("MyTag", "$customers || ${response.body()}")
                             if (customers != null) {
                                 recyclerViewAdapter.customers = customers
+                                getCustomers = customers
+                                if (getCustomers.isEmpty()){
+                                    binding.llNoResult.visibility = View.VISIBLE
+                                } else {
+                                    binding.llNoResult.visibility = View.GONE
+                                }
                             }
                         }
                     }
@@ -145,12 +205,6 @@ class CustomerFragment : Fragment() {
         }
 
         return view
-    }
-
-    fun String.toSentenceCase(): String {
-        return lowercase() // Start by lowercasing the entire string
-            .split("\\s+".toRegex()) // Split into words based on spaces
-            .joinToString(" ") { word -> word.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() } }
     }
 
     override fun onDestroyView() {

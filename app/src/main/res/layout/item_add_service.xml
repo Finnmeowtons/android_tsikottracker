@@ -14,12 +14,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Offer*"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         app:endIconMode="clear_text"
         app:errorEnabled="true"
         app:helperText="*required"
         app:errorIconDrawable="@null">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <AutoCompleteTextView
             android:id="@+id/etServiceInput"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

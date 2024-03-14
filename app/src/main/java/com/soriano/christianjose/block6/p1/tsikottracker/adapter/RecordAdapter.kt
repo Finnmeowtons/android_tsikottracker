@@ -20,6 +20,7 @@ import com.soriano.christianjose.block6.p1.tsikottracker.api.RecordApi
 import com.soriano.christianjose.block6.p1.tsikottracker.data.DeleteResponse
 import com.soriano.christianjose.block6.p1.tsikottracker.data.GetRecord
 import com.soriano.christianjose.block6.p1.tsikottracker.data.Record
+import com.soriano.christianjose.block6.p1.tsikottracker.data.StartEndDate
 import com.soriano.christianjose.block6.p1.tsikottracker.databinding.ItemRecordBinding
 import com.soriano.christianjose.block6.p1.tsikottracker.modal.ModalBottomSheet
 import com.soriano.christianjose.block6.p1.tsikottracker.viewmodel.OfferIds
@@ -32,7 +33,7 @@ import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class RecordAdapter(private val recordApi: RecordApi, private val fragmentManager: FragmentManager, private val companyId: Int, private val navController: NavController, private val offerIdsViewModel: OfferIds, private val context: Context) : RecyclerView.Adapter<RecordViewHolder>() {
+class RecordAdapter(private val recordApi: RecordApi, private val fragmentManager: FragmentManager, private val companyId: Int, private val navController: NavController, private val offerIdsViewModel: OfferIds, private val context: Context, private val startEndDate: StartEndDate) : RecyclerView.Adapter<RecordViewHolder>() {
     private val diffCallback = object : DiffUtil.ItemCallback<GetRecord>(){
         override fun areItemsTheSame(oldItem: GetRecord, newItem: GetRecord): Boolean {
             return oldItem.id == newItem.id
@@ -80,7 +81,7 @@ class RecordAdapter(private val recordApi: RecordApi, private val fragmentManage
             }
             tvOfferValue.text = offerNames
             tvPriceValue.text = offerPrices.toString()
-            val outputFormat = SimpleDateFormat("h:mm a", Locale.getDefault())
+            val outputFormat = SimpleDateFormat("HH:mm, LLL dd", Locale.getDefault())
             val formattedTime = record.time?.let { outputFormat.format(it) }
             tvTimeValue.text = formattedTime
 
@@ -125,7 +126,7 @@ class RecordAdapter(private val recordApi: RecordApi, private val fragmentManage
                                                 response: Response<DeleteResponse>
                                             ) {
                                                 if(response.isSuccessful){
-                                                    recordApi.getRecords(companyId).enqueue(object : Callback<List<GetRecord>>{
+                                                    recordApi.getRecords(companyId, startEndDate).enqueue(object : Callback<List<GetRecord>>{
                                                         override fun onResponse(
                                                             call: Call<List<GetRecord>>,
                                                             response: Response<List<GetRecord>>

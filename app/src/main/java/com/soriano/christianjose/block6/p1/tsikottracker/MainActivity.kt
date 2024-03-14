@@ -55,16 +55,15 @@ class MainActivity : AppCompatActivity() {
         binding.navView.setNavigationItemSelectedListener {menuItem ->
 
             when(menuItem.itemId){
-//                R.id.item_dashboard -> navController.navigate(R.id.action_side_nav_pop_up_to_dashboard)
+                R.id.item_dashboard -> navController.navigate(R.id.action_side_nav_pop_up_to_dashboard)
                 R.id.item_record -> navController.navigate(R.id.action_side_nav_pop_up_to_record)
-//                R.id.item_analytics -> navController.navigate(R.id.action_side_nav_pop_up_to_analytic)
+                R.id.item_analytics -> navController.navigate(R.id.action_side_nav_pop_up_to_analytic)
                 R.id.item_offers -> navController.navigate(R.id.action_side_nav_pop_up_to_offer)
                 R.id.item_companies -> navController.navigate(R.id.action_side_nav_pop_up_to_company)
                 R.id.item_customers -> navController.navigate(R.id.action_side_nav_pop_up_to_customer)
                 R.id.item_employees -> navController.navigate(R.id.action_side_nav_pop_up_to_employee)
 //                R.id.item_settings -> navController.navigate(R.id.action_side_nav_pop_up_to_settings)
                 R.id.item_logout -> {
-                    val authManager = AuthUserManager(this)
                     authManager.storeToken(null)
                     authManager.storeUserId(0)
                     authManager.storeEmail(null)

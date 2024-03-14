@@ -68,6 +68,14 @@ dependencies {
     // Feature module Support
     implementation("androidx.navigation:navigation-dynamic-features-fragment:2.7.7")
 
+    // Charts
+    // Houses the core logic for charts and other elements. Included in all other modules.
+    implementation("com.patrykandpatrick.vico:core:2.0.0-alpha.11")
+    // For the view system.
+    implementation("com.patrykandpatrick.vico:views:2.0.0-alpha.11")
+
+    implementation ("com.github.AAChartModel:AAChartCore-Kotlin:7.2.1")
+
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")

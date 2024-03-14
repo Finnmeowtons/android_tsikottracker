@@ -42,7 +42,7 @@
                 android:singleLine="true"
                 android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' "
                 android:layout_height="match_parent"
-                android:inputType="textEmailAddress"/>
+                android:inputType="textPersonName"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
