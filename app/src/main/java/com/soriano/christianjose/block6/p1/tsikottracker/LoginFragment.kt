@@ -48,26 +48,7 @@ class LoginFragment : Fragment() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        binding.shapeableImageView.setOnClickListener{
-            val service = retrofit.create(LogoutApi::class.java)
 
-            service.logout().enqueue(object: Callback<ResponseBody>{
-                override fun onResponse(call: Call<ResponseBody>,response: Response<ResponseBody>) {
-                    if (response.isSuccessful && response.code() in 200..399) {
-
-                        activity?.findViewById<AppBarLayout>(R.id.appBarLayout)?.visibility = View.VISIBLE
-                        activity?.findViewById<DrawerLayout>(R.id.drawerLayout)?.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-                        findNavController().navigate(R.id.action_side_nav_pop_up_to_record)
-                    } else {
-                        Log.e("MyTag", "Logout Failed: $call || ${response.body()}")
-                    }
-                }
-
-                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                    Log.e("MyTag", "Network Failed: $call")
-                }
-            })
-        }
 
 
         binding.btnLogin.setOnClickListener {

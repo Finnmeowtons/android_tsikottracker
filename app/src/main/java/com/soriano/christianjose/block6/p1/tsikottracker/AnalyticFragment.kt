@@ -129,7 +129,7 @@ class AnalyticFragment : Fragment() {
             Log.d("MyTag", "filteredCounts: $filteredCounts")
             val countAdapter = CountAdapter()
             binding.recyclerView2.adapter = countAdapter
-            countAdapter.counts = filteredCounts
+            countAdapter.counts = filteredCounts.sortedByDescending { it.count }
 
         }
 
@@ -291,7 +291,7 @@ class AnalyticFragment : Fragment() {
                             analysisList.forEach { Log.d("MyTag", "- ${it.name} (${it.type})") }
 
                             val recyclerViewAdapter = CountAdapter()
-                            recyclerViewAdapter.counts = analysisList
+                            recyclerViewAdapter.counts = analysisList.sortedByDescending { it.count }
                             binding.recyclerView2.adapter = recyclerViewAdapter
 
 

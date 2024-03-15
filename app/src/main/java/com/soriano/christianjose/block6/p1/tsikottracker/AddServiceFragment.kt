@@ -51,7 +51,7 @@ class AddServiceFragment : Fragment() {
             binding.textView.visibility = View.INVISIBLE
             val toolbar = activity?.findViewById<MaterialToolbar>(R.id.topAppBar)
             toolbar?.setNavigationIcon(R.drawable.arrow_back)
-
+            toolbar?.menu?.clear()
             toolbar?.setNavigationOnClickListener {
                 if (isAdded) {
                     findNavController().popBackStack()
@@ -96,7 +96,7 @@ class AddServiceFragment : Fragment() {
 
                                 if (isAdded) { // Check if the fragment is attached
                                     if (args.myArgsAddService) {
-                                        findNavController().popBackStack()
+                                        findNavController().navigate(R.id.action_side_nav_pop_up_to_offer)
                                     } else {
                                         findNavController().navigate(R.id.action_side_nav_pop_up_to_offer)
                                     }

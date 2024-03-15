@@ -277,10 +277,17 @@ class RecordFragment : Fragment() {
 
                         if (isAdded) {
                             val toolbar = activity?.findViewById<MaterialToolbar>(R.id.topAppBar)
-                            val searchView = toolbar?.menu?.findItem(R.id.search)?.actionView as SearchView
-                            searchView.setQuery("", false) // Clear the text
-                            searchView.isIconified = true
-                            toolbar.menu?.findItem(R.id.search)?.collapseActionView()
+                            if (toolbar != null && toolbar.menu != null) {
+                                if (toolbar.menu.findItem(R.id.search) != null) {
+                                    val searchView =
+                                        toolbar.menu?.findItem(R.id.search)?.actionView as SearchView
+
+                                        searchView.setQuery("", false) // Clear the text
+                                        searchView.isIconified = true
+                                        toolbar.menu?.findItem(R.id.search)?.collapseActionView()
+
+                                }
+                            }
                             binding.etCompanySelect.setText(
                                 companyToSelect.name,
                                 false
@@ -312,12 +319,15 @@ class RecordFragment : Fragment() {
                 if (response.isSuccessful) {
                     if (isAdded) {
                         val toolbar = activity?.findViewById<MaterialToolbar>(R.id.topAppBar)
-                        val searchView =
-                            toolbar?.menu?.findItem(R.id.search)?.actionView as SearchView
-                        searchView.setQuery("", false) // Clear the text
-                        searchView.isIconified = true
-                        toolbar.menu?.findItem(R.id.search)?.collapseActionView()
-
+                        if (toolbar != null && toolbar.menu != null) {
+                            if (toolbar.menu.findItem(R.id.search) != null) {
+                                val searchView =
+                                    toolbar.menu?.findItem(R.id.search)?.actionView as SearchView
+                                searchView.setQuery("", false) // Clear the text
+                                searchView.isIconified = true
+                                toolbar.menu?.findItem(R.id.search)?.collapseActionView()
+                            }
+                        }
                         val records = response.body()
                         Log.d("MyTag", "$records || ${response.body()}")
                         if (records != null) {

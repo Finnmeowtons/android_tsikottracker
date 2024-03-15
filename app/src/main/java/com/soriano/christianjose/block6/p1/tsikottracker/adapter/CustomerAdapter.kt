@@ -99,10 +99,10 @@ class CustomerAdapter(private val customerApi: CustomerApi, private val fragment
                                                     if (response.isSuccessful) {
                                                         val customerResponse = response.body()
                                                         Log.d("MyTag", "$customerResponse || ${response.body()}")
-//                                                        if (customerResponse != null) {
-//                                                            customers = customerResponse
-//                                                            notifyDataSetChanged()
-//                                                        }
+                                                        if (customerResponse != null) {
+                                                            customers = customerResponse
+                                                            notifyDataSetChanged()
+                                                        }
                                                     }
                                                 }
 
