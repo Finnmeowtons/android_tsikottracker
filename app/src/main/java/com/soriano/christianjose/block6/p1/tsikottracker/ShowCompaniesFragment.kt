@@ -51,6 +51,7 @@ class ShowCompaniesFragment : Fragment() {
         binding.rvCompanies.adapter = adapter
         sharedViewModel.updateAppBarTitle("Company")
         Log.d("MyTag", storedUserId.toString())
+        Log.d("MyTag", companyId.toString())
         companyApi.getCompanies(storedUserId).enqueue(object : Callback<List<Company>>{
             override fun onResponse(call: Call<List<Company>>, response: Response<List<Company>>) {
                 if (response.isSuccessful) {

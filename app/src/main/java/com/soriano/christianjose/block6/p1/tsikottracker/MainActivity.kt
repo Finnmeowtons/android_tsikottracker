@@ -69,6 +69,7 @@ class MainActivity : AppCompatActivity() {
                     authManager.storeToken(null)
                     authManager.storeUserId(0)
                     authManager.storeEmail(null)
+                    authManager.storeCompanyId(0)
                     navController.navigate(R.id.action_logout)
                 }
             }
